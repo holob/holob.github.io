@@ -53,6 +53,37 @@
       </tags>
   </entry>
   <entry>
+    <title>道听途说</title>
+    <url>/2022/01/01/hearsay/</url>
+    <content><![CDATA[<h2 id="女人与孩子"><a href="#女人与孩子" class="headerlink" title="女人与孩子"></a>女人与孩子</h2><p>连续两天被催着打新冠疫苗加强针。前天下午，我第一次走进小镇的卫生院。负责登记信息的护士旁边还围着三四名护士，她们一边嗑瓜子，一边闲聊。地上散落了一些瓜子皮。</p>
+<p>打完针，发现旁边有个肉夹馍的店铺，走进去打算买几个。店铺面积不小，灯光却很暗。老板和老板娘两口子面相看起来很质朴。一会走进来一个孕妇，可能怀孕8个多月。</p>
+<p>北方冬天的傍晚，那个女人就套着一件卫衣，没穿羽绒服，挺着大肚子，骑电动车出来买火腿。<br>老板娘问那个女人，肚子这么大了，咋还不生呢？女人说，不出来就等着呗。</p>
+<p>女人走后，老板娘和我闲聊几句。那个女人啊，跟着前夫过了几年没有孩子，前夫不要她了，再婚之后加上肚子里这个就生了三个娃娃了。</p>
+<p>我买完肉夹馍，给父母送了几个。我挺喜欢那个老板娘的，虽然他家的馍不好吃。<br>（2021年12月30日）</p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>见闻</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo+Github pages搭建教程</title>
+    <url>/2022/01/14/hexo/</url>
+    <content><![CDATA[<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br><span class="line">hexo deploy</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure>
+
+<h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">git add . &amp;&amp; git commit <span class="literal">-m</span> <span class="string">&quot;备份 Hexo 源文件&quot;</span> &amp;&amp; git push origin master</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2021/12/31/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -69,22 +100,6 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>道听途说</title>
-    <url>/2022/01/01/hearsay/</url>
-    <content><![CDATA[<h2 id="女人与孩子"><a href="#女人与孩子" class="headerlink" title="女人与孩子"></a>女人与孩子</h2><p>连续两天被催着打新冠疫苗加强针。前天下午，我第一次走进小镇的卫生院。负责登记信息的护士旁边还围着三四名护士，她们一边嗑瓜子，一边闲聊。地上散落了一些瓜子皮。</p>
-<p>打完针，发现旁边有个肉夹馍的店铺，走进去打算买几个。店铺面积不小，灯光却很暗。老板和老板娘两口子面相看起来很质朴。一会走进来一个孕妇，可能怀孕8个多月。</p>
-<p>北方冬天的傍晚，那个女人就套着一件卫衣，没穿羽绒服，挺着大肚子，骑电动车出来买火腿。<br>老板娘问那个女人，肚子这么大了，咋还不生呢？女人说，不出来就等着呗。</p>
-<p>女人走后，老板娘和我闲聊几句。那个女人啊，跟着前夫过了几年没有孩子，前夫不要她了，再婚之后加上肚子里这个就生了三个娃娃了。</p>
-<p>我买完肉夹馍，给父母送了几个。我挺喜欢那个老板娘的，虽然他家的馍不好吃。<br>（2021年12月30日）</p>
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>见闻</tag>
-      </tags>
   </entry>
   <entry>
     <title>Markdown常用语法</title>
@@ -227,17 +242,6 @@ hexo s
       </categories>
       <tags>
         <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo+Github pages搭建教程</title>
-    <url>/2022/01/14/hexo/</url>
-    <content><![CDATA[<h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">git add . &amp;&amp; git commit <span class="literal">-m</span> <span class="string">&quot;备份 Hexo 源文件&quot;</span> &amp;&amp; git push origin master</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
