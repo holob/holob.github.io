@@ -149,6 +149,13 @@
   </url>
   
   <url>
+    <loc>https://blog.holob.top/tags/hexo/</loc>
+    <lastmod>2022-01-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.holob.top/tags/markdown/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -157,13 +164,6 @@
   
   <url>
     <loc>https://blog.holob.top/tags/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2022-01-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.holob.top/tags/hexo/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
