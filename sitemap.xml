@@ -47,6 +47,15 @@
   </url>
   
   <url>
+    <loc>https://blog.holob.top/2022/01/14/docker-command/</loc>
+    
+    <lastmod>2022-01-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.holob.top/gallery/index.html</loc>
     
     <lastmod>2022-01-13</lastmod>
@@ -142,6 +151,20 @@
   </url>
   
   <url>
+    <loc>https://blog.holob.top/tags/docker/</loc>
+    <lastmod>2022-01-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.holob.top/tags/%E8%A7%81%E9%97%BB/</loc>
+    <lastmod>2022-01-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.holob.top/tags/hexo/</loc>
     <lastmod>2022-01-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -150,13 +173,6 @@
   
   <url>
     <loc>https://blog.holob.top/tags/markdown/</loc>
-    <lastmod>2022-01-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.holob.top/tags/%E8%A7%81%E9%97%BB/</loc>
     <lastmod>2022-01-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
