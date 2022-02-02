@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://blog.holob.top/2022/02/02/vps-centos/</loc>
+    <lastmod>2022-02-02</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.holob.top/2022/01/14/docker-command/</loc>
+    <lastmod>2022-02-02</lastmod>
+  </url>
+  <url>
     <loc>https://blog.holob.top/2022/01/14/hexo/</loc>
-    <lastmod>2022-01-22</lastmod>
+    <lastmod>2022-01-31</lastmod>
   </url>
   <url>
     <loc>https://blog.holob.top/2022/01/22/alist/</loc>
@@ -10,10 +18,6 @@
   </url>
   <url>
     <loc>https://blog.holob.top/2021/12/31/markdown-notes/</loc>
-    <lastmod>2022-01-14</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.holob.top/2022/01/14/docker-command/</loc>
     <lastmod>2022-01-14</lastmod>
   </url>
   <url>
