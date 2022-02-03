@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://blog.holob.top/2022/02/02/linux-command/</loc>
+    <lastmod>2022-02-02</lastmod>
+  </url>
+  <url>
     <loc>https://blog.holob.top/2022/02/02/vps-centos/</loc>
     <lastmod>2022-02-02</lastmod>
   </url>
