@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.holob.top/2022/02/04/nas-questions/</loc>
+    
+    <lastmod>2022-02-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.holob.top/2022/02/02/linux-command/</loc>
     
     <lastmod>2022-02-03</lastmod>
@@ -148,7 +157,7 @@
 
   <url>
     <loc>https://blog.holob.top/</loc>
-    <lastmod>2022-02-03</lastmod>
+    <lastmod>2022-02-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -156,56 +165,56 @@
   
   <url>
     <loc>https://blog.holob.top/tags/%E7%BE%A4%E6%99%96/</loc>
-    <lastmod>2022-02-03</lastmod>
+    <lastmod>2022-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.holob.top/tags/alist/</loc>
-    <lastmod>2022-02-03</lastmod>
+    <lastmod>2022-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.holob.top/tags/docker/</loc>
-    <lastmod>2022-02-03</lastmod>
+    <lastmod>2022-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.holob.top/tags/%E8%A7%81%E9%97%BB/</loc>
-    <lastmod>2022-02-03</lastmod>
+    <lastmod>2022-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.holob.top/tags/hexo/</loc>
-    <lastmod>2022-02-03</lastmod>
+    <lastmod>2022-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.holob.top/tags/markdown/</loc>
-    <lastmod>2022-02-03</lastmod>
+    <lastmod>2022-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.holob.top/tags/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2022-02-03</lastmod>
+    <lastmod>2022-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.holob.top/tags/vps/</loc>
-    <lastmod>2022-02-03</lastmod>
+    <lastmod>2022-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -214,21 +223,21 @@
   
   <url>
     <loc>https://blog.holob.top/categories/%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2022-02-03</lastmod>
+    <lastmod>2022-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.holob.top/categories/%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2022-02-03</lastmod>
+    <lastmod>2022-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.holob.top/categories/%E7%94%9F%E6%B4%BB/</loc>
-    <lastmod>2022-02-03</lastmod>
+    <lastmod>2022-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
