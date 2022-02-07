@@ -88,6 +88,24 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2021/12/31/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>宝塔面板+frp内网穿透+博客建站共存教程</title>
     <url>/2022/02/04/frp-nginx/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作者是个技术小白，非计算机相关专业，习惯使用宝塔面板建站、部署SSL证书比较方便。因为使用移动宽带，有内网穿透需求。所以，需要在不影响云服务器搭建网站的同时，使用frp进行内网穿透。</p>
@@ -217,24 +235,6 @@
       <tags>
         <tag>hexo</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/12/31/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>Linux常用命令</title>
@@ -411,6 +411,21 @@ hexo s
       </tags>
   </entry>
   <entry>
+    <title>群晖DSM系统常见问题汇总</title>
+    <url>/2022/02/04/nas-questions/</url>
+    <content><![CDATA[<h2 id="1-Docker容器时间时区不对"><a href="#1-Docker容器时间时区不对" class="headerlink" title="1.Docker容器时间时区不对"></a>1.Docker容器时间时区不对</h2><p>开启容器，并点击<code>详情-终端机-新增</code>。通过命令启动，并输入命令<code>/bin/sh</code>以进入终端。点击新建立的终端<code>sh</code>，进入终端输入命令<code>date</code>查看容器时间。开启DSM ssh，并获取root权限，用root登陆ssh终端。输入命令<code>sudo docker ps</code>获取时间不对容器的id。<br>执行如下命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker cp /etc/localtime containerID:/etc/localtime</span><br></pre></td></tr></table></figure>
+<p>执行命令后，返回终端<code>sh</code>，输入命令<code>date</code>查看容器时间是否变化。<br>时间修改成功后，该容器关闭等操作均不会受影响。如果删除容器重新建立，则需要重复该方法。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>群晖</tag>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VPS一键dd纯净系统并更改秘钥登录</title>
     <url>/2022/02/02/vps-centos/</url>
     <content><![CDATA[<blockquote>
@@ -450,21 +465,6 @@ hexo s
       </categories>
       <tags>
         <tag>vps</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>群晖DSM系统常见问题汇总</title>
-    <url>/2022/02/04/nas-questions/</url>
-    <content><![CDATA[<h2 id="1-Docker容器时间时区不对"><a href="#1-Docker容器时间时区不对" class="headerlink" title="1.Docker容器时间时区不对"></a>1.Docker容器时间时区不对</h2><p>开启容器，并点击<code>详情-终端机-新增</code>。通过命令启动，并输入命令<code>/bin/sh</code>以进入终端。点击新建立的终端<code>sh</code>，进入终端输入命令<code>date</code>查看容器时间。开启DSM ssh，并获取root权限，用root登陆ssh终端。输入命令<code>sudo docker ps</code>获取时间不对容器的id。<br>执行如下命令：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker cp /etc/localtime containerID:/etc/localtime</span><br></pre></td></tr></table></figure>
-<p>执行命令后，返回终端<code>sh</code>，输入命令<code>date</code>查看容器时间是否变化。<br>时间修改成功后，该容器关闭等操作均不会受影响。如果删除容器重新建立，则需要重复该方法。</p>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>群晖</tag>
-        <tag>docker</tag>
       </tags>
   </entry>
 </search>
