@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>宝塔面板+frp内网穿透+博客建站共存教程 | 小城故事</title><meta name="keywords" content="宝塔,frp,vps,nginx"><meta name="author" content="Holob"><meta name="copyright" content="Holob"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言作者是个技术小白，非计算机相关专业，习惯使用宝塔面板建站、部署SSL证书比较方便。因为使用移动宽带，有内网穿透需求。所以，需要在不影响云服务器搭建网站的同时，使用frp进行内网穿透。  frp 是一个高性能的反向代理应用，支持 tcp, udp, http, https 协议。 Nginx是一款轻量级的Web 服务器&#x2F;反向代理服务器及电子邮件（IMAP&#x2F;POP3）代理服务器，其特点是占有内存少">
+<meta property="og:type" content="article">
+<meta property="og:title" content="宝塔面板+frp内网穿透+博客建站共存教程">
+<meta property="og:url" content="https://blog.holob.cn/2022/02/04/frp-nginx/index.html">
+<meta property="og:site_name" content="小城故事">
+<meta property="og:description" content="前言作者是个技术小白，非计算机相关专业，习惯使用宝塔面板建站、部署SSL证书比较方便。因为使用移动宽带，有内网穿透需求。所以，需要在不影响云服务器搭建网站的同时，使用frp进行内网穿透。  frp 是一个高性能的反向代理应用，支持 tcp, udp, http, https 协议。 Nginx是一款轻量级的Web 服务器&#x2F;反向代理服务器及电子邮件（IMAP&#x2F;POP3）代理服务器，其特点是占有内存少">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/holob/imagebed/raw/master/nginx1.png">
+<meta property="article:published_time" content="2022-02-04T09:15:00.000Z">
+<meta property="article:modified_time" content="2022-02-05T09:46:37.026Z">
+<meta property="article:author" content="Holob">
+<meta property="article:tag" content="宝塔">
+<meta property="article:tag" content="frp">
+<meta property="article:tag" content="vps">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/holob/imagebed/raw/master/nginx1.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.holob.cn/2022/02/04/frp-nginx/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="c9qDVKZZL2qhGiRujalv83CkVRIofA1yDn7Qv7LtjLA"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?82857b5f83442f292a6988430b84eee3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-217276614-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-217276614-1');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":30,"position":"top","messagePrev":"距离上次更新已经过了","messageNext":"天，文中部分内容可能已经过时，如有疑问，请在下方留言。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '宝塔面板+frp内网穿透+博客建站共存教程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-05 17:46:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://gitee.com/holob/imagebed/raw/master/avatar1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 时间</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-archive"></i><span> 百宝箱</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="http://106.52.120.70:5244"><i class="fa-fw fas fa-cloud"></i><span> 云盘</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="http://106.52.120.70:8096"><i class="fa-fw fas fa-film"></i><span> Jellyfin</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list-alt"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 阅读</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/artitalk/"><i class="fa-fw fas fa-comment"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gitee.com/holob/imagebed/raw/master/nginx1.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小城故事</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 时间</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-archive"></i><span> 百宝箱</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="http://106.52.120.70:5244"><i class="fa-fw fas fa-cloud"></i><span> 云盘</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="http://106.52.120.70:8096"><i class="fa-fw fas fa-film"></i><span> Jellyfin</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list-alt"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 阅读</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/artitalk/"><i class="fa-fw fas fa-comment"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">宝塔面板+frp内网穿透+博客建站共存教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-04T09:15:00.000Z" title="发表于 2022-02-04 17:15:00">2022-02-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-05T09:46:37.026Z" title="更新于 2022-02-05 17:46:37">2022-02-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="宝塔面板+frp内网穿透+博客建站共存教程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/02/04/frp-nginx/#post-comment"><span class="waline-comment-count" id="/2022/02/04/frp-nginx/"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作者是个技术小白，非计算机相关专业，习惯使用宝塔面板建站、部署SSL证书比较方便。因为使用移动宽带，有内网穿透需求。所以，需要在不影响云服务器搭建网站的同时，使用frp进行内网穿透。</p>
+<blockquote>
+<p>frp 是一个高性能的反向代理应用，支持 tcp, udp, http, https 协议。</p>
+<p>Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，其特点是占有内存少，并发能力强。</p>
+</blockquote>
+<p>需要准备的东西：</p>
+<ul>
+<li><p>一台装好宝塔面板和Nginx的服务器，这里使用腾讯云轻量应用服务器。</p>
+</li>
+<li><p>一个解析好的域名，最好使用支持泛解析的服务，这里使用腾讯DNSPod。</p>
+</li>
+</ul>
+<h2 id="1-配置frp服务端-frps"><a href="#1-配置frp服务端-frps" class="headerlink" title="1.配置frp服务端(frps)"></a>1.配置frp服务端(frps)</h2><p>首先用ssh连接vps，切换到root用户，输入脚本安装命令安装frps。</p>
+<p>Aliyun（大陆地区VPS适用）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://code.aliyun.com/MvsCode/frps-onekey/raw/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line">chmod 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure>
+
+<p>Github</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/MvsCode/frps-onekey/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line">chmod 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/holob/imagebed/raw/master/frp1.jpg" alt="frps脚本" style="zoom:80%;" />
+
+<p>注意：http和https不能使用默认80和443端口，需要做修改，也就是说除了80，443外，1-65535任意端口都可以，前提是不能有其他项目占用想要设置的端口，比如作者用808代替80端口，909代替443，这样就可以避开其他程序占用80或443的问题。</p>
+<p>其他设置如图所示，一路回车即可。遇到需要修改用户名和密码的地方，可以按需修改，也可以默认，最后会把所有信息列出来。</p>
+<img src="https://gitee.com/holob/imagebed/raw/master/frp2.jpg" alt="frps相关参数设置" style="zoom:80%;" />
+
+<img src="https://gitee.com/holob/imagebed/raw/master/frp3.jpg" alt="frps参数确认" style="zoom:80%;" />
+
+<p>这一步是让你确认配置，还没有安装成功，继续按回车键，等待自动安装完成。</p>
+<img src="https://gitee.com/holob/imagebed/raw/master/frp4.jpg" alt="frps安装成功" style="zoom:80%;" />
+
+<p>至此，frp服务端安装完成。</p>
+<p><strong>注意！注意！注意！</strong></p>
+<p>必须开放对应的防火墙端口，需要开放的端口包括808、909、5443、6443。</p>
+<p>云服务器和宝塔面板的防火墙都需要开放对应端口！！！</p>
+<h2 id="2-宝塔面板配置"><a href="#2-宝塔面板配置" class="headerlink" title="2.宝塔面板配置"></a>2.宝塔面板配置</h2><h3 id="2-1域名解析"><a href="#2-1域名解析" class="headerlink" title="2.1域名解析"></a>2.1域名解析</h3><p>提前解析好域名，如果你的域名支持泛解析的话，就一起做解析，操作方法就是在A记录中添加一个“*”即可。</p>
+<p><img src="https://gitee.com/holob/imagebed/raw/master/frp8.png" alt="一级域名泛解析示例"></p>
+<p>本文使用的是二级域名进行泛解析。</p>
+<p><img src="https://gitee.com/holob/imagebed/raw/master/frp5.png" alt="二级域名泛解析示例"></p>
+<p>如果域名解析商不支持泛解析，也不影响后续操作，把需要用到的域名全部解析即可。</p>
+<h3 id="2-2宝塔面板建站"><a href="#2-2宝塔面板建站" class="headerlink" title="2.2宝塔面板建站"></a>2.2宝塔面板建站</h3><p><img src="https://gitee.com/holob/imagebed/raw/master/frp6.png" alt="宝塔面板建站"></p>
+<p>首先点击左侧的<code>网站</code>，之后点击上方绿色的<code>添加站点</code>，把你对应远程设备的域名都添加进宝塔面板的网站域名中即可，后续有增加，也要跟着添加进来。PHP版本选择<code>纯静态</code>。</p>
+<h3 id="2-3设置反向代理"><a href="#2-3设置反向代理" class="headerlink" title="2.3设置反向代理"></a>2.3设置反向代理</h3><p><img src="https://gitee.com/holob/imagebed/raw/master/frp7.png" alt="站点设置反向代理"></p>
+<p>点击新建站点的<code>设置</code>，点击对话框中左侧的<code>反向代理</code>。代理名称随便写，目标URL输入<code>http://127.0.0.1:808</code>，点击<code>保存</code>。</p>
+<p>至此，反向代理配置完成。</p>
+<h2 id="3-frp客户端配置-frpc"><a href="#3-frp客户端配置-frpc" class="headerlink" title="3.frp客户端配置(frpc)"></a>3.frp客户端配置(frpc)</h2><h3 id="3-1OpenWrt中frp内网穿透客户端"><a href="#3-1OpenWrt中frp内网穿透客户端" class="headerlink" title="3.1OpenWrt中frp内网穿透客户端"></a>3.1OpenWrt中frp内网穿透客户端</h3><p>注意：固件是否集成frp内网穿透插件，要看编译固件的作者。如果没有集成该插件，可自行安装。 </p>
+<p>进入<code>服务-frp内网穿透</code>，具体设置如下：</p>
+<p><img src="https://gitee.com/holob/imagebed/raw/master/frp9.png" alt="OpenWrt-frp客户端设置"></p>
+<p>点击保存后继续点击下方的<code>添加</code>，进行内网设备的相应设置。</p>
+<p><img src="https://gitee.com/holob/imagebed/raw/master/frp10.png" alt="OpenWrt-frp客户端添加服务"></p>
+<h3 id="3-2群晖DSM使用frp客户端"><a href="#3-2群晖DSM使用frp客户端" class="headerlink" title="3.2群晖DSM使用frp客户端"></a>3.2群晖DSM使用frp客户端</h3><p>如果没有OpenWrt，可以在群晖使用frpc docker进行内网穿透。</p>
+<h4 id="3-2-1Docker镜像下载"><a href="#3-2-1Docker镜像下载" class="headerlink" title="3.2.1Docker镜像下载"></a>3.2.1Docker镜像下载</h4><p>打开<code>Docker</code>，点击<code>注册表</code>，搜索<code>frpc</code>。选择<code>stilleshan/frpc</code>下载，选择<code>latest</code>为最新版本。这个镜像是参考教程的博主部署的。<br><img src="https://gitee.com/holob/imagebed/raw/master/705154211.jpg" alt="注册表搜索frpc"></p>
+<p><img src="https://gitee.com/holob/imagebed/raw/master/2179779878.jpg" alt="下载frpc镜像"><br><img src="https://gitee.com/holob/imagebed/raw/master/1200862366.jpg" alt="选择latest版本"></p>
+<h4 id="3-2-2配置frpc-ini"><a href="#3-2-2配置frpc-ini" class="headerlink" title="3.2.2配置frpc.ini"></a>3.2.2配置frpc.ini</h4><p>在群晖NAS任意位置新建或者上传frpc.ini文件。使用群晖的文本编辑套件或<code>Notepad++</code>等编辑器来创建和编辑.ini文件，避免Windows下的后缀问题导致容器错误。</p>
+<p>本文以<code>/docker/frpc/frpc.ini</code>为例，文件路径如图：<br><img src="https://gitee.com/holob/imagebed/raw/master/344843302.jpg" alt="设置配置文件路径"></p>
+<p><strong>frpc.ini配置示例</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 服务器IP</span><br><span class="line">server_port = 5443</span><br><span class="line">token = abc123</span><br><span class="line">[nas]             </span><br><span class="line">type = http</span><br><span class="line">local_port = 5000</span><br><span class="line">subdomain = nas</span><br><span class="line">[jellyfin]</span><br><span class="line">type = http</span><br><span class="line">local_port = 8096</span><br><span class="line">subdomain = dy</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-3创建容器"><a href="#3-2-3创建容器" class="headerlink" title="3.2.3创建容器"></a>3.2.3创建容器</h4><p>选择<code>映像</code>，双击<code>stilleshan/frpc:latest</code>。<br><img src="https://gitee.com/holob/imagebed/raw/master/4250522632.jpg" alt="创建容器"><br>勾选<code>使用高权限执行容器</code>，点击<code>高级设置</code>。<br><img src="https://gitee.com/holob/imagebed/raw/master/1453127059.jpg" alt="容器常规设置"><br>选择卷，添加文件，指定到你frpc.ini所在的位置，装载路径为<code>/frp/frpc.ini</code>。</p>
+<p>注意：装载路径由镜像作者规定，不能修改，请直接复制粘贴。</p>
+<p><img src="https://gitee.com/holob/imagebed/raw/master/3358516214.jpg" alt="设置文件装载路径"><br>选择<code>网络</code>，勾选<code>使用与Docker Host相同的网络</code>，点击<code>应用</code>。<br><img src="https://gitee.com/holob/imagebed/raw/master/1312208069.jpg" alt="设置网络"><br>点击<code>应用</code>完成配置。<br><img src="https://gitee.com/holob/imagebed/raw/master/2342983845.jpg" alt="应用设置"><br>容器中可以看到frpc正在运行中。之后可以随时停止容器，编辑frpc.ini来配置你的域名，再次启动容器即可。全程无需使用命令行来操作。<br><img src="https://gitee.com/holob/imagebed/raw/master/133348284.jpg" alt="容器运行"></p>
+<p>至此，全部配置完成，可以随时随地访问自己的内网设备了~</p>
+<h2 id="4-实现SSL访问"><a href="#4-实现SSL访问" class="headerlink" title="4.实现SSL访问"></a>4.实现SSL访问</h2><h3 id="4-1申请证书"><a href="#4-1申请证书" class="headerlink" title="4.1申请证书"></a>4.1申请证书</h3><p>通过<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/ssl/dsc/apply">腾讯云DNSPod</a>申请免费证书，有效期1年。申请后很快会提示通过，申请了2次都在5分钟内审核成功。</p>
+<p>申请成功后，服务器类型<code>其他</code>，点击<code>下载</code>。</p>
+<p><img src="https://gitee.com/holob/imagebed/raw/master/frp11.png" alt="下载其他类型证书"></p>
+<h3 id="4-2部署证书"><a href="#4-2部署证书" class="headerlink" title="4.2部署证书"></a>4.2部署证书</h3><p>登录宝塔面板，打开<code>网站</code>，站点设置<code>SSL</code>，将对应的key和pem文本粘贴进去，点击<code>保存</code>，开启<code>强制HTTPS</code>即可。</p>
+<p>注意：免费证书不支持泛域名，所以必须单独设置解析，单独添加站点开启HTTPS访问。</p>
+<h2 id="5-脚本相关命令"><a href="#5-脚本相关命令" class="headerlink" title="5.脚本相关命令"></a>5.脚本相关命令</h2><p><strong>Uninstall（卸载）</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./install-frps.sh uninstall</span><br></pre></td></tr></table></figure>
+
+<p><strong>Update（更新）</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./install-frps.sh update</span><br></pre></td></tr></table></figure>
+
+<p><strong>Server management（服务管理器）</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frps start|stop|restart|status|config|version</span><br></pre></td></tr></table></figure>
+
+<h2 id="需要注意的问题"><a href="#需要注意的问题" class="headerlink" title="需要注意的问题"></a>需要注意的问题</h2><p>如果你使用的国内服务器，因为没有备案，即使设置成功也无法使用域名直接访问。</p>
+<p>解决方案：</p>
+<ol>
+<li>使用香港或国外服务器；</li>
+<li>申请备案。</li>
+</ol>
+<p>参考链接：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://wxf2088.xyz/2930.html">https://wxf2088.xyz/2930.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ioiox.com/archives/26.html">https://www.ioiox.com/archives/26.html</a></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Holob</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.holob.cn/2022/02/04/frp-nginx/">https://blog.holob.cn/2022/02/04/frp-nginx/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.holob.cn" target="_blank">小城故事</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AE%9D%E5%A1%94/">宝塔</a><a class="post-meta__tags" href="/tags/frp/">frp</a><a class="post-meta__tags" href="/tags/vps/">vps</a><a class="post-meta__tags" href="/tags/nginx/">nginx</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/holob/imagebed/raw/master/nginx1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/02/04/nas-questions/"><img class="next-cover" src="https://gitee.com/holob/imagebed/raw/master/questions_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">群晖DSM系统常见问题汇总</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/02/02/vps-centos/" title="VPS一键dd纯净系统并更改秘钥登录"><img class="cover" src="https://gitee.com/holob/imagebed/raw/master/vps_cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-02-02</div><div class="title">VPS一键dd纯净系统并更改秘钥登录</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Waline</span><span class="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://gitee.com/holob/imagebed/raw/master/avatar1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Holob</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/holob" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:heroluom@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">记录学习和成长，还有摸鱼……</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AEfrp%E6%9C%8D%E5%8A%A1%E7%AB%AF-frps"><span class="toc-text">1.配置frp服务端(frps)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF%E9%85%8D%E7%BD%AE"><span class="toc-text">2.宝塔面板配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="toc-text">2.1域名解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF%E5%BB%BA%E7%AB%99"><span class="toc-text">2.2宝塔面板建站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3%E8%AE%BE%E7%BD%AE%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text">2.3设置反向代理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-frp%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE-frpc"><span class="toc-text">3.frp客户端配置(frpc)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1OpenWrt%E4%B8%ADfrp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">3.1OpenWrt中frp内网穿透客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2%E7%BE%A4%E6%99%96DSM%E4%BD%BF%E7%94%A8frp%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">3.2群晖DSM使用frp客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1Docker%E9%95%9C%E5%83%8F%E4%B8%8B%E8%BD%BD"><span class="toc-text">3.2.1Docker镜像下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2%E9%85%8D%E7%BD%AEfrpc-ini"><span class="toc-text">3.2.2配置frpc.ini</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8"><span class="toc-text">3.2.3创建容器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%9E%E7%8E%B0SSL%E8%AE%BF%E9%97%AE"><span class="toc-text">4.实现SSL访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1%E7%94%B3%E8%AF%B7%E8%AF%81%E4%B9%A6"><span class="toc-text">4.1申请证书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2%E9%83%A8%E7%BD%B2%E8%AF%81%E4%B9%A6"><span class="toc-text">4.2部署证书</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%84%9A%E6%9C%AC%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">5.脚本相关命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">需要注意的问题</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/02/04/frp-nginx/" title="宝塔面板+frp内网穿透+博客建站共存教程"><img src="https://gitee.com/holob/imagebed/raw/master/nginx1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="宝塔面板+frp内网穿透+博客建站共存教程"/></a><div class="content"><a class="title" href="/2022/02/04/frp-nginx/" title="宝塔面板+frp内网穿透+博客建站共存教程">宝塔面板+frp内网穿透+博客建站共存教程</a><time datetime="2022-02-04T09:15:00.000Z" title="发表于 2022-02-04 17:15:00">2022-02-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/04/nas-questions/" title="群晖DSM系统常见问题汇总"><img src="https://gitee.com/holob/imagebed/raw/master/questions_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖DSM系统常见问题汇总"/></a><div class="content"><a class="title" href="/2022/02/04/nas-questions/" title="群晖DSM系统常见问题汇总">群晖DSM系统常见问题汇总</a><time datetime="2022-02-04T06:05:00.000Z" title="发表于 2022-02-04 14:05:00">2022-02-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/02/linux-command/" title="Linux常用命令"><img src="https://gitee.com/holob/imagebed/raw/master/linux_top.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux常用命令"/></a><div class="content"><a class="title" href="/2022/02/02/linux-command/" title="Linux常用命令">Linux常用命令</a><time datetime="2022-02-02T09:30:00.000Z" title="发表于 2022-02-02 17:30:00">2022-02-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/02/vps-centos/" title="VPS一键dd纯净系统并更改秘钥登录"><img src="https://gitee.com/holob/imagebed/raw/master/vps_cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VPS一键dd纯净系统并更改秘钥登录"/></a><div class="content"><a class="title" href="/2022/02/02/vps-centos/" title="VPS一键dd纯净系统并更改秘钥登录">VPS一键dd纯净系统并更改秘钥登录</a><time datetime="2022-02-02T05:20:00.000Z" title="发表于 2022-02-02 13:20:00">2022-02-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/22/alist/" title="群晖搭建Alist网盘列表教程"><img src="https://gitee.com/holob/imagebed/raw/master/alist-cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖搭建Alist网盘列表教程"/></a><div class="content"><a class="title" href="/2022/01/22/alist/" title="群晖搭建Alist网盘列表教程">群晖搭建Alist网盘列表教程</a><time datetime="2022-01-22T15:40:00.000Z" title="发表于 2022-01-22 23:40:00">2022-01-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://gitee.com/holob/imagebed/raw/master/footer2.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Holob</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><span>冀ICP备2022002105号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadWaline () {
+  function initWaline () {
+    const waline = new Waline(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://blog-api-glrpo9ll3-holob.vercel.app/',
+      avatar: 'monsterid',
+      avatarCDN: 'https://sdn.geekzu.org/avatar/',
+      path: location.pathname,
+      visitor: false,
+      dark: 'html[data-theme="dark"]'
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline() 
+  else getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js').then(initWaline)
+}
+
+if ('Waline' === 'Waline' || !false) {
+  if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '358a9578dc6c5e36270d',
+      clientSecret: 'c7b8a3e06c97b638a4663e04719b8963141c52d9',
+      repo: 'gitalk',
+      owner: 'holob',
+      admin: ['holob'],
+      id: '99f58e741063da701768ad4c994eed9a',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Waline' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
