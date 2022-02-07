@@ -236,6 +236,13 @@
   </url>
   
   <url>
+    <loc>https://blog.holob.cn/tags/markdown/</loc>
+    <lastmod>2022-02-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.holob.cn/tags/Linux/</loc>
     <lastmod>2022-02-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -244,13 +251,6 @@
   
   <url>
     <loc>https://blog.holob.cn/tags/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2022-02-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.holob.cn/tags/markdown/</loc>
     <lastmod>2022-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
