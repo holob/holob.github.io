@@ -53,6 +53,41 @@
       </tags>
   </entry>
   <entry>
+    <title>docker常用命令</title>
+    <url>/2022/01/14/docker-command/</url>
+    <content><![CDATA[<p>本文为笔者使用docker命令的记录，方便以后查询、补充。</p>
+<p>笔者非专业人士，如有错误，敬请指正。</p>
+<h2 id="1-容器命令"><a href="#1-容器命令" class="headerlink" title="1.容器命令"></a>1.容器命令</h2><h3 id="1-1启动容器"><a href="#1-1启动容器" class="headerlink" title="1.1启动容器"></a>1.1启动容器</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker start my_container #启动一个已有的容器</span><br><span class="line">docker run my_image #创建一个新容器并启动</span><br></pre></td></tr></table></figure>
+
+<p>注意：容器可以通过容器的 ID 或容器的名称来引用。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d my_image #-d是—detach的缩写，指在后台运行容器，允许您在容器运行时将终端用于其他命令。</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2检查容器状态"><a href="#1-2检查容器状态" class="headerlink" title="1.2检查容器状态"></a>1.2检查容器状态</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker ls #列出运行中的容器，同时提供关于容器有用的信息。</span><br><span class="line">docker ls -a -s #-a是–all的缩写，列出所有容器（不仅仅是正在运行中的容器）,-s是—size的缩写，列出每个容器的大小。</span><br><span class="line">docker inspect my_container #查看有关容器的信息</span><br><span class="line">docker logs my_container #列出容器日志</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3终止容器"><a href="#1-3终止容器" class="headerlink" title="1.3终止容器"></a>1.3终止容器</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker stop my_container #停止一个或多个正在运行的容器,在容器关闭之前提供默认10秒以完成任何进程。</span><br><span class="line">docker kill my_container #立即停止一个或多个正在运行的容器，建议使用stop命令。</span><br><span class="line">docker kill $(docker ps -q) #终止所有运行中的容器</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4删除容器"><a href="#1-4删除容器" class="headerlink" title="1.4删除容器"></a>1.4删除容器</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker rm my_container #删除一个或多个容器</span><br><span class="line">docker rm $(docker ps -a -q) #删除所有不在运行中的容器</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-镜像命令"><a href="#2-镜像命令" class="headerlink" title="2.镜像命令"></a>2.镜像命令</h2><h2 id="2-1检查镜像"><a href="#2-1检查镜像" class="headerlink" title="2.1检查镜像"></a>2.1检查镜像</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker image ls  #列出你的镜像以及每个镜像的大小</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2清理镜像"><a href="#2-2清理镜像" class="headerlink" title="2.2清理镜像"></a>2.2清理镜像</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker image rm my_image  #删除指定镜像。如果镜像被保存在镜像仓库中，那么该镜像在那依旧可用。</span><br></pre></td></tr></table></figure>
+
+<p>参考链接</p>
+<ol>
+<li><p>Docker 文档：<a href="https://docs.docker.com/engine/reference/commandline/cli/">https://docs.docker.com/engine/reference/commandline/cli/</a></p>
+</li>
+<li><p>Docker 命令行入门大全：<a href="https://www.infoq.cn/article/s3qkg9lvbxplmaiqjame">https://www.infoq.cn/article/s3qkg9lvbxplmaiqjame</a></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>宝塔面板+frp内网穿透+博客建站共存教程</title>
     <url>/2022/02/04/frp-nginx/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作者是个技术小白，非计算机相关专业，习惯使用宝塔面板建站、部署SSL证书比较方便。因为使用移动宽带，有内网穿透需求。所以，需要在不影响云服务器搭建网站的同时，使用frp进行内网穿透。</p>
@@ -150,41 +185,6 @@
         <tag>frp</tag>
         <tag>vps</tag>
         <tag>nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>docker常用命令</title>
-    <url>/2022/01/14/docker-command/</url>
-    <content><![CDATA[<p>本文为笔者使用docker命令的记录，方便以后查询、补充。</p>
-<p>笔者非专业人士，如有错误，敬请指正。</p>
-<h2 id="1-容器命令"><a href="#1-容器命令" class="headerlink" title="1.容器命令"></a>1.容器命令</h2><h3 id="1-1启动容器"><a href="#1-1启动容器" class="headerlink" title="1.1启动容器"></a>1.1启动容器</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker start my_container #启动一个已有的容器</span><br><span class="line">docker run my_image #创建一个新容器并启动</span><br></pre></td></tr></table></figure>
-
-<p>注意：容器可以通过容器的 ID 或容器的名称来引用。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d my_image #-d是—detach的缩写，指在后台运行容器，允许您在容器运行时将终端用于其他命令。</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-2检查容器状态"><a href="#1-2检查容器状态" class="headerlink" title="1.2检查容器状态"></a>1.2检查容器状态</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker ls #列出运行中的容器，同时提供关于容器有用的信息。</span><br><span class="line">docker ls -a -s #-a是–all的缩写，列出所有容器（不仅仅是正在运行中的容器）,-s是—size的缩写，列出每个容器的大小。</span><br><span class="line">docker inspect my_container #查看有关容器的信息</span><br><span class="line">docker logs my_container #列出容器日志</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-3终止容器"><a href="#1-3终止容器" class="headerlink" title="1.3终止容器"></a>1.3终止容器</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker stop my_container #停止一个或多个正在运行的容器,在容器关闭之前提供默认10秒以完成任何进程。</span><br><span class="line">docker kill my_container #立即停止一个或多个正在运行的容器，建议使用stop命令。</span><br><span class="line">docker kill $(docker ps -q) #终止所有运行中的容器</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-4删除容器"><a href="#1-4删除容器" class="headerlink" title="1.4删除容器"></a>1.4删除容器</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker rm my_container #删除一个或多个容器</span><br><span class="line">docker rm $(docker ps -a -q) #删除所有不在运行中的容器</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-镜像命令"><a href="#2-镜像命令" class="headerlink" title="2.镜像命令"></a>2.镜像命令</h2><h2 id="2-1检查镜像"><a href="#2-1检查镜像" class="headerlink" title="2.1检查镜像"></a>2.1检查镜像</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker image ls  #列出你的镜像以及每个镜像的大小</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-2清理镜像"><a href="#2-2清理镜像" class="headerlink" title="2.2清理镜像"></a>2.2清理镜像</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker image rm my_image  #删除指定镜像。如果镜像被保存在镜像仓库中，那么该镜像在那依旧可用。</span><br></pre></td></tr></table></figure>
-
-<p>参考链接</p>
-<ol>
-<li><p>Docker 文档：<a href="https://docs.docker.com/engine/reference/commandline/cli/">https://docs.docker.com/engine/reference/commandline/cli/</a></p>
-</li>
-<li><p>Docker 命令行入门大全：<a href="https://www.infoq.cn/article/s3qkg9lvbxplmaiqjame">https://www.infoq.cn/article/s3qkg9lvbxplmaiqjame</a></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
       </tags>
   </entry>
   <entry>
