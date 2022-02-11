@@ -1,470 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>群晖搭建Alist网盘列表教程</title>
-    <url>/2022/01/22/alist/</url>
-    <content><![CDATA[<blockquote>
-<p>Alist是一款支持本地存储、阿里云盘、天翼云盘、蓝奏云等多种存储的目录文件列表程序，支持 web 浏览与 webdav，完美解决了单个网盘容量不足、网盘数量太多不方便管理与使用的痛点。</p>
-</blockquote>
-<p>项目地址：<a href="https://github.com/Xhofe/alist">https://github.com/Xhofe/alist</a></p>
-<p>官方文档：<a href="https://alist-doc.nn.ci/docs/intro">https://alist-doc.nn.ci/docs/intro</a></p>
-<p>作者博客：<a href="https://www.nn.ci/archives/alist.html">https://www.nn.ci/archives/alist.html</a></p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/alist_demo.webp" alt="Demo"></p>
-<h2 id="1-Alist程序安装"><a href="#1-Alist程序安装" class="headerlink" title="1.Alist程序安装"></a>1.Alist程序安装</h2><p>为了使路径保持一致，在<code>docker</code>文件夹下，创建一个新文件夹命名为<code>alist</code>，在<code>alist</code>文件夹下，再创建一个新文件夹命名为<code>data</code>，用于存放数据库和配置文件。</p>
-<h3 id="1-1命令行安装（推荐）"><a href="#1-1命令行安装（推荐）" class="headerlink" title="1.1命令行安装（推荐）"></a>1.1命令行安装（推荐）</h3><p>使用SSH工具登录群晖，并切换至root权限。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo -i</span><br></pre></td></tr></table></figure>
-
-<h4 id="稳定版"><a href="#稳定版" class="headerlink" title="稳定版"></a>稳定版</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d --restart=always -v /volume1/docker/alist/data:/opt/alist/data -p 5244:5244 --name=&quot;alist&quot; xhofe/alist:latest</span><br></pre></td></tr></table></figure>
-
-<h4 id="开发版"><a href="#开发版" class="headerlink" title="开发版"></a>开发版</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d --restart=always -v /volume1/docker/alist/data:/opt/alist/data -p 5244:5244 --name=&quot;alist&quot; xhofe/alist:v2</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意：</strong><code>/volume1/docker/alist/data</code>应根据具体路径进行设置。</p>
-<h3 id="1-2docker管理器安装"><a href="#1-2docker管理器安装" class="headerlink" title="1.2docker管理器安装"></a>1.2docker管理器安装</h3><p>在注册表中搜索 <code>alist</code> ，选择 <code>xhofe/alist</code>lastest版本，双击直接下载。</p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/alist1.png" alt="下载镜像"></p>
-<p>点击<code>映像</code>，双击刚刚下载的<code>xhofe/alist:latest</code>，开始创建容器。</p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/alist2.png" alt="创建容器"></p>
-<p>点击<code>高级设置</code>，为了方便使用，勾选<code>启用自动重新启动</code>。</p>
-<p>之后依次对存储空间和端口进行设置，装载路径为<code>/opt/alist/data</code>。</p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/alist6.png" alt="启用自动重新启动"></p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/alist4.png" alt="端口设置"></p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/alist5.png" alt="存储空间"></p>
-<p>点击<code>应用</code>，再点击<code>下一步</code>，完成容器创建。</p>
-<h2 id="2-Alist相关设置"><a href="#2-Alist相关设置" class="headerlink" title="2.Alist相关设置"></a>2.Alist相关设置</h2><p>在浏览器中输入 <code>http://群晖IP:5244</code>，输入初始密码<code>alist</code>，点击<code>登录</code>。</p>
-<p>前端设置界面可以对站点标题、logo、头像等内容进行设置。</p>
-<h3 id="自定义body"><a href="#自定义body" class="headerlink" title="自定义body"></a>自定义body</h3><p>显示站点运行时间（自用）</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;chakra-stack css-owjkmg&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;chakra-stack line0 css-g9cw6v&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span>&gt;</span>本站已经运行<span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">&quot;days&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">a</span>&gt;</span>天<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> s1 = <span class="string">&#x27;2022-01-15&#x27;</span>;</span></span><br><span class="line"><span class="javascript">s1 = <span class="keyword">new</span> <span class="built_in">Date</span>(s1.replace(<span class="regexp">/-/g</span>, <span class="string">&quot;/&quot;</span>));</span></span><br><span class="line"><span class="javascript">s2 = <span class="keyword">new</span> <span class="built_in">Date</span>();</span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> days = s2.getTime() - s1.getTime();</span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> number_of_days = <span class="built_in">parseInt</span>(days / (<span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span>));</span></span><br><span class="line"><span class="javascript"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;days&#x27;</span>).innerHTML = number_of_days;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="3-Alist添加账号"><a href="#3-Alist添加账号" class="headerlink" title="3.Alist添加账号"></a>3.Alist添加账号</h2><p>支持本地存储和十余种网络存储，添加账号具体方法参照<a href="https://alist-doc.nn.ci/docs/driver/base">官方文档</a>。</p>
-<p><strong>注意：</strong>排序方向<code>asc</code>为正序，<code>desc</code>为倒序。</p>
-<h2 id="4-Alist程序更新"><a href="#4-Alist程序更新" class="headerlink" title="4.Alist程序更新"></a>4.Alist程序更新</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker container ls  #获取容器ID</span><br><span class="line">docker stop containerID  #停止指定容器</span><br><span class="line">docker rm  containerID  #清除指定容器</span><br><span class="line">docker pull xhofe/alist:latest  #拉取最新镜像</span><br><span class="line">docker run -d --restart=always -v /volume1/docker/alist/data:/opt/alist/data -p 5244:5244 --name=&quot;alist&quot; xhofe/alist:latest  #运行镜像</span><br></pre></td></tr></table></figure>
-
-<p>（可选）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker images  #获取镜像ID</span><br><span class="line">docker rmi imageID  #删除指定镜像</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-本地存储挂载"><a href="#5-本地存储挂载" class="headerlink" title="5.本地存储挂载"></a>5.本地存储挂载</h2><p>根目录路径应为容器内路径，挂载根目录用<code>/</code>，挂载指定文件夹，例如<code>/opt/alist/data</code>。</p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/alist7.png" alt="本地存储挂载"></p>
-]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>宝塔面板+frp内网穿透+博客建站共存教程</title>
+      <link href="/2022/02/04/frp-nginx/"/>
+      <url>/2022/02/04/frp-nginx/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作者是个技术小白，非计算机相关专业，习惯使用宝塔面板建站、部署SSL证书比较方便。因为使用移动宽带，有内网穿透需求。所以，需要在不影响云服务器搭建网站的同时，使用frp进行内网穿透。</p><blockquote><p>frp 是一个高性能的反向代理应用，支持 tcp, udp, http, https 协议。</p><p>Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，其特点是占有内存少，并发能力强。</p></blockquote><p>需要准备的东西：</p><ul><li><p>一台装好宝塔面板和Nginx的服务器，这里使用腾讯云轻量应用服务器。</p></li><li><p>一个解析好的域名，最好使用支持泛解析的服务，这里使用腾讯DNSPod。</p></li></ul><h2 id="1-配置frp服务端-frps"><a href="#1-配置frp服务端-frps" class="headerlink" title="1.配置frp服务端(frps)"></a>1.配置frp服务端(frps)</h2><p>首先用ssh连接vps，切换到root用户，输入脚本安装命令安装frps。</p><p>Aliyun（大陆地区VPS适用）</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://code.aliyun.com/MvsCode/frps-onekey/raw/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line">chmod 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure><p>Github</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/MvsCode/frps-onekey/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line">chmod 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure><img src="https://gitee.com/holob/imagebed/raw/master/frp1.jpg" alt="frps脚本" style="zoom:80%;" /><p>注意：http和https不能使用默认80和443端口，需要做修改，也就是说除了80，443外，1-65535任意端口都可以，前提是不能有其他项目占用想要设置的端口，比如作者用808代替80端口，909代替443，这样就可以避开其他程序占用80或443的问题。</p><p>其他设置如图所示，一路回车即可。遇到需要修改用户名和密码的地方，可以按需修改，也可以默认，最后会把所有信息列出来。</p><img src="https://gitee.com/holob/imagebed/raw/master/frp2.jpg" alt="frps相关参数设置" style="zoom:80%;" /><img src="https://gitee.com/holob/imagebed/raw/master/frp3.jpg" alt="frps参数确认" style="zoom:80%;" /><p>这一步是让你确认配置，还没有安装成功，继续按回车键，等待自动安装完成。</p><img src="https://gitee.com/holob/imagebed/raw/master/frp4.jpg" alt="frps安装成功" style="zoom:80%;" /><p>至此，frp服务端安装完成。</p><p><strong>注意！注意！注意！</strong></p><p>必须开放对应的防火墙端口，需要开放的端口包括808、909、5443、6443。</p><p>云服务器和宝塔面板的防火墙都需要开放对应端口！！！</p><h2 id="2-宝塔面板配置"><a href="#2-宝塔面板配置" class="headerlink" title="2.宝塔面板配置"></a>2.宝塔面板配置</h2><h3 id="2-1域名解析"><a href="#2-1域名解析" class="headerlink" title="2.1域名解析"></a>2.1域名解析</h3><p>提前解析好域名，如果你的域名支持泛解析的话，就一起做解析，操作方法就是在A记录中添加一个“*”即可。</p><p><img src="https://gitee.com/holob/imagebed/raw/master/frp8.png" alt="一级域名泛解析示例"></p><p>本文使用的是二级域名进行泛解析。</p><p><img src="https://gitee.com/holob/imagebed/raw/master/frp5.png" alt="二级域名泛解析示例"></p><p>如果域名解析商不支持泛解析，也不影响后续操作，把需要用到的域名全部解析即可。</p><h3 id="2-2宝塔面板建站"><a href="#2-2宝塔面板建站" class="headerlink" title="2.2宝塔面板建站"></a>2.2宝塔面板建站</h3><p><img src="https://gitee.com/holob/imagebed/raw/master/frp6.png" alt="宝塔面板建站"></p><p>首先点击左侧的<code>网站</code>，之后点击上方绿色的<code>添加站点</code>，把你对应远程设备的域名都添加进宝塔面板的网站域名中即可，后续有增加，也要跟着添加进来。PHP版本选择<code>纯静态</code>。</p><h3 id="2-3设置反向代理"><a href="#2-3设置反向代理" class="headerlink" title="2.3设置反向代理"></a>2.3设置反向代理</h3><p><img src="https://gitee.com/holob/imagebed/raw/master/frp7.png" alt="站点设置反向代理"></p><p>点击新建站点的<code>设置</code>，点击对话框中左侧的<code>反向代理</code>。代理名称随便写，目标URL输入<code>http://127.0.0.1:808</code>，点击<code>保存</code>。</p><p>至此，反向代理配置完成。</p><h2 id="3-frp客户端配置-frpc"><a href="#3-frp客户端配置-frpc" class="headerlink" title="3.frp客户端配置(frpc)"></a>3.frp客户端配置(frpc)</h2><h3 id="3-1OpenWrt中frp内网穿透客户端"><a href="#3-1OpenWrt中frp内网穿透客户端" class="headerlink" title="3.1OpenWrt中frp内网穿透客户端"></a>3.1OpenWrt中frp内网穿透客户端</h3><p>注意：固件是否集成frp内网穿透插件，要看编译固件的作者。如果没有集成该插件，可自行安装。 </p><p>进入<code>服务-frp内网穿透</code>，具体设置如下：</p><p><img src="https://gitee.com/holob/imagebed/raw/master/frp9.png" alt="OpenWrt-frp客户端设置"></p><p>点击保存后继续点击下方的<code>添加</code>，进行内网设备的相应设置。</p><p><img src="https://gitee.com/holob/imagebed/raw/master/frp10.png" alt="OpenWrt-frp客户端添加服务"></p><h3 id="3-2群晖DSM使用frp客户端"><a href="#3-2群晖DSM使用frp客户端" class="headerlink" title="3.2群晖DSM使用frp客户端"></a>3.2群晖DSM使用frp客户端</h3><p>如果没有OpenWrt，可以在群晖使用frpc docker进行内网穿透。</p><h4 id="3-2-1Docker镜像下载"><a href="#3-2-1Docker镜像下载" class="headerlink" title="3.2.1Docker镜像下载"></a>3.2.1Docker镜像下载</h4><p>打开<code>Docker</code>，点击<code>注册表</code>，搜索<code>frpc</code>。选择<code>stilleshan/frpc</code>下载，选择<code>latest</code>为最新版本。这个镜像是参考教程的博主部署的。<br><img src="https://gitee.com/holob/imagebed/raw/master/705154211.jpg" alt="注册表搜索frpc"></p><p><img src="https://gitee.com/holob/imagebed/raw/master/2179779878.jpg" alt="下载frpc镜像"><br><img src="https://gitee.com/holob/imagebed/raw/master/1200862366.jpg" alt="选择latest版本"></p><h4 id="3-2-2配置frpc-ini"><a href="#3-2-2配置frpc-ini" class="headerlink" title="3.2.2配置frpc.ini"></a>3.2.2配置frpc.ini</h4><p>在群晖NAS任意位置新建或者上传frpc.ini文件。使用群晖的文本编辑套件或<code>Notepad++</code>等编辑器来创建和编辑.ini文件，避免Windows下的后缀问题导致容器错误。</p><p>本文以<code>/docker/frpc/frpc.ini</code>为例，文件路径如图：<br><img src="https://gitee.com/holob/imagebed/raw/master/344843302.jpg" alt="设置配置文件路径"></p><p><strong>frpc.ini配置示例</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 服务器IP</span><br><span class="line">server_port = 5443</span><br><span class="line">token = abc123</span><br><span class="line">[nas]             </span><br><span class="line">type = http</span><br><span class="line">local_port = 5000</span><br><span class="line">subdomain = nas</span><br><span class="line">[jellyfin]</span><br><span class="line">type = http</span><br><span class="line">local_port = 8096</span><br><span class="line">subdomain = dy</span><br></pre></td></tr></table></figure><h4 id="3-2-3创建容器"><a href="#3-2-3创建容器" class="headerlink" title="3.2.3创建容器"></a>3.2.3创建容器</h4><p>选择<code>映像</code>，双击<code>stilleshan/frpc:latest</code>。<br><img src="https://gitee.com/holob/imagebed/raw/master/4250522632.jpg" alt="创建容器"><br>勾选<code>使用高权限执行容器</code>，点击<code>高级设置</code>。<br><img src="https://gitee.com/holob/imagebed/raw/master/1453127059.jpg" alt="容器常规设置"><br>选择卷，添加文件，指定到你frpc.ini所在的位置，装载路径为<code>/frp/frpc.ini</code>。</p><p>注意：装载路径由镜像作者规定，不能修改，请直接复制粘贴。</p><p><img src="https://gitee.com/holob/imagebed/raw/master/3358516214.jpg" alt="设置文件装载路径"><br>选择<code>网络</code>，勾选<code>使用与Docker Host相同的网络</code>，点击<code>应用</code>。<br><img src="https://gitee.com/holob/imagebed/raw/master/1312208069.jpg" alt="设置网络"><br>点击<code>应用</code>完成配置。<br><img src="https://gitee.com/holob/imagebed/raw/master/2342983845.jpg" alt="应用设置"><br>容器中可以看到frpc正在运行中。之后可以随时停止容器，编辑frpc.ini来配置你的域名，再次启动容器即可。全程无需使用命令行来操作。<br><img src="https://gitee.com/holob/imagebed/raw/master/133348284.jpg" alt="容器运行"></p><p>至此，全部配置完成，可以随时随地访问自己的内网设备了~</p><h2 id="4-实现SSL访问"><a href="#4-实现SSL访问" class="headerlink" title="4.实现SSL访问"></a>4.实现SSL访问</h2><h3 id="4-1申请证书"><a href="#4-1申请证书" class="headerlink" title="4.1申请证书"></a>4.1申请证书</h3><p>通过<a href="https://console.cloud.tencent.com/ssl/dsc/apply">腾讯云DNSPod</a>申请免费证书，有效期1年。申请后很快会提示通过，申请了2次都在5分钟内审核成功。</p><p>申请成功后，服务器类型<code>其他</code>，点击<code>下载</code>。</p><p><img src="https://gitee.com/holob/imagebed/raw/master/frp11.png" alt="下载其他类型证书"></p><h3 id="4-2部署证书"><a href="#4-2部署证书" class="headerlink" title="4.2部署证书"></a>4.2部署证书</h3><p>登录宝塔面板，打开<code>网站</code>，站点设置<code>SSL</code>，将对应的key和pem文本粘贴进去，点击<code>保存</code>，开启<code>强制HTTPS</code>即可。</p><p>注意：免费证书不支持泛域名，所以必须单独设置解析，单独添加站点开启HTTPS访问。</p><h2 id="5-脚本相关命令"><a href="#5-脚本相关命令" class="headerlink" title="5.脚本相关命令"></a>5.脚本相关命令</h2><p><strong>Uninstall（卸载）</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./install-frps.sh uninstall</span><br></pre></td></tr></table></figure><p><strong>Update（更新）</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./install-frps.sh update</span><br></pre></td></tr></table></figure><p><strong>Server management（服务管理器）</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frps start|stop|restart|status|config|version</span><br></pre></td></tr></table></figure><h2 id="需要注意的问题"><a href="#需要注意的问题" class="headerlink" title="需要注意的问题"></a>需要注意的问题</h2><p>如果你使用的国内服务器，因为没有备案，即使设置成功也无法使用域名直接访问。</p><p>解决方案：</p><ol><li>使用香港或国外服务器；</li><li>申请备案。</li></ol><p>参考链接：</p><ol><li><a href="https://wxf2088.xyz/2930.html">https://wxf2088.xyz/2930.html</a></li><li><a href="https://www.ioiox.com/archives/26.html">https://www.ioiox.com/archives/26.html</a></li></ol>]]></content>
+      
+      
       <categories>
-        <category>教程</category>
+          
+          <category> 教程 </category>
+          
       </categories>
-      <tags>
-        <tag>群晖</tag>
-        <tag>alist</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>docker常用命令</title>
-    <url>/2022/01/14/docker-command/</url>
-    <content><![CDATA[<p>本文为笔者使用docker命令的记录，方便以后查询、补充。</p>
-<p>笔者非专业人士，如有错误，敬请指正。</p>
-<h2 id="1-容器命令"><a href="#1-容器命令" class="headerlink" title="1.容器命令"></a>1.容器命令</h2><h3 id="1-1启动容器"><a href="#1-1启动容器" class="headerlink" title="1.1启动容器"></a>1.1启动容器</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker start my_container #启动一个已有的容器</span><br><span class="line">docker run my_image #创建一个新容器并启动</span><br></pre></td></tr></table></figure>
-
-<p>注意：容器可以通过容器的 ID 或容器的名称来引用。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d my_image #-d是—detach的缩写，指在后台运行容器，允许您在容器运行时将终端用于其他命令。</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-2检查容器状态"><a href="#1-2检查容器状态" class="headerlink" title="1.2检查容器状态"></a>1.2检查容器状态</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker ls #列出运行中的容器，同时提供关于容器有用的信息。</span><br><span class="line">docker ls -a -s #-a是–all的缩写，列出所有容器（不仅仅是正在运行中的容器）,-s是—size的缩写，列出每个容器的大小。</span><br><span class="line">docker inspect my_container #查看有关容器的信息</span><br><span class="line">docker logs my_container #列出容器日志</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-3终止容器"><a href="#1-3终止容器" class="headerlink" title="1.3终止容器"></a>1.3终止容器</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker stop my_container #停止一个或多个正在运行的容器,在容器关闭之前提供默认10秒以完成任何进程。</span><br><span class="line">docker kill my_container #立即停止一个或多个正在运行的容器，建议使用stop命令。</span><br><span class="line">docker kill $(docker ps -q) #终止所有运行中的容器</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-4删除容器"><a href="#1-4删除容器" class="headerlink" title="1.4删除容器"></a>1.4删除容器</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker rm my_container #删除一个或多个容器</span><br><span class="line">docker rm $(docker ps -a -q) #删除所有不在运行中的容器</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-镜像命令"><a href="#2-镜像命令" class="headerlink" title="2.镜像命令"></a>2.镜像命令</h2><h2 id="2-1检查镜像"><a href="#2-1检查镜像" class="headerlink" title="2.1检查镜像"></a>2.1检查镜像</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker image ls  #列出你的镜像以及每个镜像的大小</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-2清理镜像"><a href="#2-2清理镜像" class="headerlink" title="2.2清理镜像"></a>2.2清理镜像</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker image rm my_image  #删除指定镜像。如果镜像被保存在镜像仓库中，那么该镜像在那依旧可用。</span><br></pre></td></tr></table></figure>
-
-<p>参考链接</p>
-<ol>
-<li><p>Docker 文档：<a href="https://docs.docker.com/engine/reference/commandline/cli/">https://docs.docker.com/engine/reference/commandline/cli/</a></p>
-</li>
-<li><p>Docker 命令行入门大全：<a href="https://www.infoq.cn/article/s3qkg9lvbxplmaiqjame">https://www.infoq.cn/article/s3qkg9lvbxplmaiqjame</a></p>
-</li>
-</ol>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 宝塔 </tag>
+            
+            <tag> frp </tag>
+            
+            <tag> vps </tag>
+            
+            <tag> nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>群晖DSM系统常见问题汇总</title>
+      <link href="/2022/02/04/nas-questions/"/>
+      <url>/2022/02/04/nas-questions/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-Docker容器时间时区不对"><a href="#1-Docker容器时间时区不对" class="headerlink" title="1.Docker容器时间时区不对"></a>1.Docker容器时间时区不对</h2><p>开启容器，并点击<code>详情-终端机-新增</code>。通过命令启动，并输入命令<code>/bin/sh</code>以进入终端。点击新建立的终端<code>sh</code>，进入终端输入命令<code>date</code>查看容器时间。开启DSM ssh，并获取root权限，用root登陆ssh终端。输入命令<code>sudo docker ps</code>获取时间不对容器的id。<br>执行如下命令：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp /etc/localtime containerID:/etc/localtime</span><br></pre></td></tr></table></figure><p>执行命令后，返回终端<code>sh</code>，输入命令<code>date</code>查看容器时间是否变化。<br>时间修改成功后，该容器关闭等操作均不会受影响。如果删除容器重新建立，则需要重复该方法。</p>]]></content>
+      
+      
       <categories>
-        <category>笔记</category>
+          
+          <category> 笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道听途说</title>
-    <url>/2022/01/01/hearsay/</url>
-    <content><![CDATA[<h2 id="女人与孩子"><a href="#女人与孩子" class="headerlink" title="女人与孩子"></a>女人与孩子</h2><p>连续两天被催着打新冠疫苗加强针。前天下午，我第一次走进小镇的卫生院。负责登记信息的护士旁边还围着三四名护士，她们一边嗑瓜子，一边闲聊。地上散落了一些瓜子皮。</p>
-<p>打完针，发现旁边有个肉夹馍的店铺，走进去打算买几个。店铺面积不小，灯光却很暗。老板和老板娘两口子面相看起来很质朴。一会走进来一个孕妇，可能怀孕8个多月。</p>
-<p>北方冬天的傍晚，那个女人就套着一件卫衣，没穿羽绒服，挺着大肚子，骑电动车出来买火腿。<br>老板娘问那个女人，肚子这么大了，咋还不生呢？女人说，不出来就等着呗。</p>
-<p>女人走后，老板娘和我闲聊几句。那个女人啊，跟着前夫过了几年没有孩子，前夫不要她了，再婚之后加上肚子里这个就生了三个娃娃了。</p>
-<p>我买完肉夹馍，给父母送了几个。我挺喜欢那个老板娘的，虽然他家的馍不好吃。<br>（2021年12月30日）</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> 群晖 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux常用命令</title>
+      <link href="/2022/02/02/linux-command/"/>
+      <url>/2022/02/02/linux-command/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-防火墙"><a href="#1-防火墙" class="headerlink" title="1.防火墙"></a>1.防火墙</h2><p>CentOS 6 默认内置防火墙类型为iptables<br>CentOS 7 默认内置防火墙类型为firewalld</p><h3 id="1-1查看防火墙状态"><a href="#1-1查看防火墙状态" class="headerlink" title="1.1查看防火墙状态"></a>1.1查看防火墙状态</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status firewalld</span><br></pre></td></tr></table></figure><p>此处如果提示firewalld.service could not be found.则说明你的系统没有装防火墙，则不需要设置。</p><h3 id="1-2开放指定端口"><a href="#1-2开放指定端口" class="headerlink" title="1.2开放指定端口"></a>1.2开放指定端口</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=***/tcp --permanent</span><br></pre></td></tr></table></figure><h3 id="1-3关闭指定端口"><a href="#1-3关闭指定端口" class="headerlink" title="1.3关闭指定端口"></a>1.3关闭指定端口</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --remove-port=***/tcp --permanent</span><br></pre></td></tr></table></figure><p>–permanent参数表示永久生效，没有此参数重启后失效。</p><h3 id="1-4其他常用命令"><a href="#1-4其他常用命令" class="headerlink" title="1.4其他常用命令"></a>1.4其他常用命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">systemctl start firewalld #启动防火墙</span><br><span class="line">firewall-cmd --reload #重启firewall</span><br><span class="line">systemctl stop firewalld.service #停止firewall</span><br><span class="line">systemctl enable firewalld #设置开机启动</span><br><span class="line">systemctl disable firewalld.service #禁止firewall开机启动</span><br><span class="line">firewall-cmd --state #查看默认防火墙状态（关闭后显示notrunning，开启后显示running）</span><br><span class="line">firewall-cmd --permanent --list-port #查看已开放的端口</span><br></pre></td></tr></table></figure><h2 id="2-修改SSH默认22端口"><a href="#2-修改SSH默认22端口" class="headerlink" title="2.修改SSH默认22端口"></a>2.修改SSH默认22端口</h2><p>适用系统：CentOS/Debian/Ubuntu Linux</p><h2 id="2-1备份原sshd配置文件"><a href="#2-1备份原sshd配置文件" class="headerlink" title="2.1备份原sshd配置文件"></a>2.1备份原sshd配置文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup</span><br></pre></td></tr></table></figure><h2 id="2-2修改sshd配置文件"><a href="#2-2修改sshd配置文件" class="headerlink" title="2.2修改sshd配置文件"></a>2.2修改sshd配置文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure><p>查找<code>Port 22</code>，有可能是注释的（即前面有<code>#</code>号，有的话删掉<code>#</code>号）。<br>在<code>Port 22</code>下面添加一行<code>Port 3322</code> ，3322为你更改SSH后的端口。<br>这里建议先保留原来的22端口，待新的SSH端口测试正常工作后再删掉原<code>Port 22</code>端口行。<br>修改完成后保存。</p><h2 id="2-3重启SSH服务器"><a href="#2-3重启SSH服务器" class="headerlink" title="2.3重启SSH服务器"></a>2.3重启SSH服务器</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart sshd #重启SSH服务器</span><br></pre></td></tr></table></figure><p>如果没有systemctl的话可以执行<code>/etc/init.d/sshd restart</code> 或 <code>/etc/init.d/ssh restart</code>。<br>如果没有报错的话就生效了，可以 <code>ss -ntl</code> 或 <code>netstat -ntl</code> 查看一下端口。</p><h2 id="2-4防火墙、安全组规则设置"><a href="#2-4防火墙、安全组规则设置" class="headerlink" title="2.4防火墙、安全组规则设置"></a>2.4防火墙、安全组规则设置</h2><p>iptables添加SSH新端口规则：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp --dport 3322 -j ACCEPT #3322为新的端口</span><br></pre></td></tr></table></figure><p>然后保存iptables规则</p><p>firewalld添加SSH新端口规则：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --zone=public --add-port=3322/tcp #3322为新的端口</span><br><span class="line">firewall-cmd --reload #重载firewalld</span><br></pre></td></tr></table></figure><p>阿里云之类的安全组规则添加SSH新端口规则：阿里云之类的有安全组之类设置的云服务器一定要在安全组规则里将新端口添加到“入方向”的允许规则。</p><h2 id="2-SSH软件连接测试"><a href="#2-SSH软件连接测试" class="headerlink" title="2.SSH软件连接测试"></a>2.SSH软件连接测试</h2><p>添加上新的SSH端口后一定要通过putty、xshell之类的SSH软件连接测试一下，测试可以正常连接然后再编辑 <code>/etc/ssh/sshd_config</code> 将Port 22 这一行直接删除或这一行前面加 # 注释掉，然后再按前面的命令重启sshd服务。</p>]]></content>
+      
+      
       <categories>
-        <category>生活</category>
+          
+          <category> 笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>见闻</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>宝塔面板+frp内网穿透+博客建站共存教程</title>
-    <url>/2022/02/04/frp-nginx/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作者是个技术小白，非计算机相关专业，习惯使用宝塔面板建站、部署SSL证书比较方便。因为使用移动宽带，有内网穿透需求。所以，需要在不影响云服务器搭建网站的同时，使用frp进行内网穿透。</p>
-<blockquote>
-<p>frp 是一个高性能的反向代理应用，支持 tcp, udp, http, https 协议。</p>
-<p>Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，其特点是占有内存少，并发能力强。</p>
-</blockquote>
-<p>需要准备的东西：</p>
-<ul>
-<li><p>一台装好宝塔面板和Nginx的服务器，这里使用腾讯云轻量应用服务器。</p>
-</li>
-<li><p>一个解析好的域名，最好使用支持泛解析的服务，这里使用腾讯DNSPod。</p>
-</li>
-</ul>
-<h2 id="1-配置frp服务端-frps"><a href="#1-配置frp服务端-frps" class="headerlink" title="1.配置frp服务端(frps)"></a>1.配置frp服务端(frps)</h2><p>首先用ssh连接vps，切换到root用户，输入脚本安装命令安装frps。</p>
-<p>Aliyun（大陆地区VPS适用）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget https://code.aliyun.com/MvsCode/frps-onekey/raw/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line">chmod 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure>
-
-<p>Github</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/MvsCode/frps-onekey/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line">chmod 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure>
-
-<img src="https://gitee.com/holob/imagebed/raw/master/frp1.jpg" alt="frps脚本" style="zoom:80%;" />
-
-<p>注意：http和https不能使用默认80和443端口，需要做修改，也就是说除了80，443外，1-65535任意端口都可以，前提是不能有其他项目占用想要设置的端口，比如作者用808代替80端口，909代替443，这样就可以避开其他程序占用80或443的问题。</p>
-<p>其他设置如图所示，一路回车即可。遇到需要修改用户名和密码的地方，可以按需修改，也可以默认，最后会把所有信息列出来。</p>
-<img src="https://gitee.com/holob/imagebed/raw/master/frp2.jpg" alt="frps相关参数设置" style="zoom:80%;" />
-
-<img src="https://gitee.com/holob/imagebed/raw/master/frp3.jpg" alt="frps参数确认" style="zoom:80%;" />
-
-<p>这一步是让你确认配置，还没有安装成功，继续按回车键，等待自动安装完成。</p>
-<img src="https://gitee.com/holob/imagebed/raw/master/frp4.jpg" alt="frps安装成功" style="zoom:80%;" />
-
-<p>至此，frp服务端安装完成。</p>
-<p><strong>注意！注意！注意！</strong></p>
-<p>必须开放对应的防火墙端口，需要开放的端口包括808、909、5443、6443。</p>
-<p>云服务器和宝塔面板的防火墙都需要开放对应端口！！！</p>
-<h2 id="2-宝塔面板配置"><a href="#2-宝塔面板配置" class="headerlink" title="2.宝塔面板配置"></a>2.宝塔面板配置</h2><h3 id="2-1域名解析"><a href="#2-1域名解析" class="headerlink" title="2.1域名解析"></a>2.1域名解析</h3><p>提前解析好域名，如果你的域名支持泛解析的话，就一起做解析，操作方法就是在A记录中添加一个“*”即可。</p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/frp8.png" alt="一级域名泛解析示例"></p>
-<p>本文使用的是二级域名进行泛解析。</p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/frp5.png" alt="二级域名泛解析示例"></p>
-<p>如果域名解析商不支持泛解析，也不影响后续操作，把需要用到的域名全部解析即可。</p>
-<h3 id="2-2宝塔面板建站"><a href="#2-2宝塔面板建站" class="headerlink" title="2.2宝塔面板建站"></a>2.2宝塔面板建站</h3><p><img src="https://gitee.com/holob/imagebed/raw/master/frp6.png" alt="宝塔面板建站"></p>
-<p>首先点击左侧的<code>网站</code>，之后点击上方绿色的<code>添加站点</code>，把你对应远程设备的域名都添加进宝塔面板的网站域名中即可，后续有增加，也要跟着添加进来。PHP版本选择<code>纯静态</code>。</p>
-<h3 id="2-3设置反向代理"><a href="#2-3设置反向代理" class="headerlink" title="2.3设置反向代理"></a>2.3设置反向代理</h3><p><img src="https://gitee.com/holob/imagebed/raw/master/frp7.png" alt="站点设置反向代理"></p>
-<p>点击新建站点的<code>设置</code>，点击对话框中左侧的<code>反向代理</code>。代理名称随便写，目标URL输入<code>http://127.0.0.1:808</code>，点击<code>保存</code>。</p>
-<p>至此，反向代理配置完成。</p>
-<h2 id="3-frp客户端配置-frpc"><a href="#3-frp客户端配置-frpc" class="headerlink" title="3.frp客户端配置(frpc)"></a>3.frp客户端配置(frpc)</h2><h3 id="3-1OpenWrt中frp内网穿透客户端"><a href="#3-1OpenWrt中frp内网穿透客户端" class="headerlink" title="3.1OpenWrt中frp内网穿透客户端"></a>3.1OpenWrt中frp内网穿透客户端</h3><p>注意：固件是否集成frp内网穿透插件，要看编译固件的作者。如果没有集成该插件，可自行安装。 </p>
-<p>进入<code>服务-frp内网穿透</code>，具体设置如下：</p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/frp9.png" alt="OpenWrt-frp客户端设置"></p>
-<p>点击保存后继续点击下方的<code>添加</code>，进行内网设备的相应设置。</p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/frp10.png" alt="OpenWrt-frp客户端添加服务"></p>
-<h3 id="3-2群晖DSM使用frp客户端"><a href="#3-2群晖DSM使用frp客户端" class="headerlink" title="3.2群晖DSM使用frp客户端"></a>3.2群晖DSM使用frp客户端</h3><p>如果没有OpenWrt，可以在群晖使用frpc docker进行内网穿透。</p>
-<h4 id="3-2-1Docker镜像下载"><a href="#3-2-1Docker镜像下载" class="headerlink" title="3.2.1Docker镜像下载"></a>3.2.1Docker镜像下载</h4><p>打开<code>Docker</code>，点击<code>注册表</code>，搜索<code>frpc</code>。选择<code>stilleshan/frpc</code>下载，选择<code>latest</code>为最新版本。这个镜像是参考教程的博主部署的。<br><img src="https://gitee.com/holob/imagebed/raw/master/705154211.jpg" alt="注册表搜索frpc"></p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/2179779878.jpg" alt="下载frpc镜像"><br><img src="https://gitee.com/holob/imagebed/raw/master/1200862366.jpg" alt="选择latest版本"></p>
-<h4 id="3-2-2配置frpc-ini"><a href="#3-2-2配置frpc-ini" class="headerlink" title="3.2.2配置frpc.ini"></a>3.2.2配置frpc.ini</h4><p>在群晖NAS任意位置新建或者上传frpc.ini文件。使用群晖的文本编辑套件或<code>Notepad++</code>等编辑器来创建和编辑.ini文件，避免Windows下的后缀问题导致容器错误。</p>
-<p>本文以<code>/docker/frpc/frpc.ini</code>为例，文件路径如图：<br><img src="https://gitee.com/holob/imagebed/raw/master/344843302.jpg" alt="设置配置文件路径"></p>
-<p><strong>frpc.ini配置示例</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 服务器IP</span><br><span class="line">server_port = 5443</span><br><span class="line">token = abc123</span><br><span class="line">[nas]             </span><br><span class="line">type = http</span><br><span class="line">local_port = 5000</span><br><span class="line">subdomain = nas</span><br><span class="line">[jellyfin]</span><br><span class="line">type = http</span><br><span class="line">local_port = 8096</span><br><span class="line">subdomain = dy</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-2-3创建容器"><a href="#3-2-3创建容器" class="headerlink" title="3.2.3创建容器"></a>3.2.3创建容器</h4><p>选择<code>映像</code>，双击<code>stilleshan/frpc:latest</code>。<br><img src="https://gitee.com/holob/imagebed/raw/master/4250522632.jpg" alt="创建容器"><br>勾选<code>使用高权限执行容器</code>，点击<code>高级设置</code>。<br><img src="https://gitee.com/holob/imagebed/raw/master/1453127059.jpg" alt="容器常规设置"><br>选择卷，添加文件，指定到你frpc.ini所在的位置，装载路径为<code>/frp/frpc.ini</code>。</p>
-<p>注意：装载路径由镜像作者规定，不能修改，请直接复制粘贴。</p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/3358516214.jpg" alt="设置文件装载路径"><br>选择<code>网络</code>，勾选<code>使用与Docker Host相同的网络</code>，点击<code>应用</code>。<br><img src="https://gitee.com/holob/imagebed/raw/master/1312208069.jpg" alt="设置网络"><br>点击<code>应用</code>完成配置。<br><img src="https://gitee.com/holob/imagebed/raw/master/2342983845.jpg" alt="应用设置"><br>容器中可以看到frpc正在运行中。之后可以随时停止容器，编辑frpc.ini来配置你的域名，再次启动容器即可。全程无需使用命令行来操作。<br><img src="https://gitee.com/holob/imagebed/raw/master/133348284.jpg" alt="容器运行"></p>
-<p>至此，全部配置完成，可以随时随地访问自己的内网设备了~</p>
-<h2 id="4-实现SSL访问"><a href="#4-实现SSL访问" class="headerlink" title="4.实现SSL访问"></a>4.实现SSL访问</h2><h3 id="4-1申请证书"><a href="#4-1申请证书" class="headerlink" title="4.1申请证书"></a>4.1申请证书</h3><p>通过<a href="https://console.cloud.tencent.com/ssl/dsc/apply">腾讯云DNSPod</a>申请免费证书，有效期1年。申请后很快会提示通过，申请了2次都在5分钟内审核成功。</p>
-<p>申请成功后，服务器类型<code>其他</code>，点击<code>下载</code>。</p>
-<p><img src="https://gitee.com/holob/imagebed/raw/master/frp11.png" alt="下载其他类型证书"></p>
-<h3 id="4-2部署证书"><a href="#4-2部署证书" class="headerlink" title="4.2部署证书"></a>4.2部署证书</h3><p>登录宝塔面板，打开<code>网站</code>，站点设置<code>SSL</code>，将对应的key和pem文本粘贴进去，点击<code>保存</code>，开启<code>强制HTTPS</code>即可。</p>
-<p>注意：免费证书不支持泛域名，所以必须单独设置解析，单独添加站点开启HTTPS访问。</p>
-<h2 id="5-脚本相关命令"><a href="#5-脚本相关命令" class="headerlink" title="5.脚本相关命令"></a>5.脚本相关命令</h2><p><strong>Uninstall（卸载）</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./install-frps.sh uninstall</span><br></pre></td></tr></table></figure>
-
-<p><strong>Update（更新）</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./install-frps.sh update</span><br></pre></td></tr></table></figure>
-
-<p><strong>Server management（服务管理器）</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">frps start|stop|restart|status|config|version</span><br></pre></td></tr></table></figure>
-
-<h2 id="需要注意的问题"><a href="#需要注意的问题" class="headerlink" title="需要注意的问题"></a>需要注意的问题</h2><p>如果你使用的国内服务器，因为没有备案，即使设置成功也无法使用域名直接访问。</p>
-<p>解决方案：</p>
-<ol>
-<li>使用香港或国外服务器；</li>
-<li>申请备案。</li>
-</ol>
-<p>参考链接：</p>
-<ol>
-<li><a href="https://wxf2088.xyz/2930.html">https://wxf2088.xyz/2930.html</a></li>
-<li><a href="https://www.ioiox.com/archives/26.html">https://www.ioiox.com/archives/26.html</a></li>
-</ol>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VPS一键dd纯净系统并更改秘钥登录</title>
+      <link href="/2022/02/02/vps-centos/"/>
+      <url>/2022/02/02/vps-centos/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>一些VPS商家默认配置非纯净系统，为用户使用带来不便。本文以CentOS为例，记录使用一键脚本重装纯净系统，并设置仅密钥登录防止暴力破解。</p></blockquote><h2 id="1-重装系统"><a href="#1-重装系统" class="headerlink" title="1.重装系统"></a>1.重装系统</h2><p>使用一键网络重装系统脚本，可以通过Internet重新安装Linux和Windows以及常见的操作系统。<br>具体操作方法如下：<br>CentOS系统</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum update -y</span><br><span class="line">yum install -y xz openssl gawk file</span><br></pre></td></tr></table></figure><p>下载脚本(root用户)</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 别人备份的镜像</span></span><br><span class="line">wget http://shell.p1e.cn/reinstall/dd.sh &amp;&amp; chmod +x dd.sh &amp;&amp; ./dd.sh</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 原版地址</span></span><br><span class="line">wget --no-check-certificate -qO ~/Network-Reinstall-System-Modify.sh &#x27;https://www.cxthhhhh.com/tech-tools/Network-Reinstall-System-Modify/Network-Reinstall-System-Modify.sh&#x27; &amp;&amp; chmod a+x ~/Network-Reinstall-System-Modify.sh</span><br></pre></td></tr></table></figure><p>安装Linux系统</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 一键网络重装纯净CentOS 7</span></span><br><span class="line">bash ~/Network-Reinstall-System-Modify.sh -CentOS_7</span><br></pre></td></tr></table></figure><p>默认密码：cxthhhhh.com<br>本文仅列出CentOS 7安装方法，更多脚本使用方法参考：<a href="https://www.cxthhhhh.com/network-reinstall-system-modify">https://www.cxthhhhh.com/network-reinstall-system-modify</a></p><h2 id="2-修改密码"><a href="#2-修改密码" class="headerlink" title="2.修改密码"></a>2.修改密码</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure><p>注意：输入密码不会显示，输入完毕直接回车即可。</p><h2 id="3-同步时间"><a href="#3-同步时间" class="headerlink" title="3.同步时间"></a>3.同步时间</h2><h3 id="3-1查看时间"><a href="#3-1查看时间" class="headerlink" title="3.1查看时间"></a>3.1查看时间</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date -R</span><br></pre></td></tr></table></figure><h3 id="3-2设置时区为北京时间"><a href="#3-2设置时区为北京时间" class="headerlink" title="3.2设置时区为北京时间"></a>3.2设置时区为北京时间</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /etc/localtime</span><br><span class="line">ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure><h3 id="3-3NTP-同步时间协议"><a href="#3-3NTP-同步时间协议" class="headerlink" title="3.3NTP 同步时间协议"></a>3.3NTP 同步时间协议</h3><p>CentOS系统</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ntp ntpdate -y</span><br></pre></td></tr></table></figure><p>接下来我们需要先停止 NTP 服务器，再更新时间。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service ntpd stop #停止 ntp 服务</span><br><span class="line">ntpdate us.pool.ntp.org #同步 ntp 时间</span><br><span class="line">service ntpd start #启动 ntp 服务</span><br></pre></td></tr></table></figure><p>对完时间后，我们需要将当前时间和日期写入BIOS，避免重启后失效，命令如下：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hwclock -w</span><br></pre></td></tr></table></figure><h2 id="4-密钥登录"><a href="#4-密钥登录" class="headerlink" title="4.密钥登录"></a>4.密钥登录</h2><h3 id="4-1生成密钥对"><a href="#4-1生成密钥对" class="headerlink" title="4.1生成密钥对"></a>4.1生成密钥对</h3><p>在远端VPS上执行如下命令，之后将私钥<code>id_rsa</code>文件下载到本地。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure><h3 id="4-2安装公钥"><a href="#4-2安装公钥" class="headerlink" title="4.2安装公钥"></a>4.2安装公钥</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd .ssh/ </span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys #将公钥写入到 authorized_keys 文件</span><br></pre></td></tr></table></figure><h3 id="4-3修改权限"><a href="#4-3修改权限" class="headerlink" title="4.3修改权限"></a>4.3修改权限</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 authorized_keys</span><br><span class="line">chmod 700 ~/.ssh</span><br></pre></td></tr></table></figure><h3 id="4-4修改-sshd-配置文件"><a href="#4-4修改-sshd-配置文件" class="headerlink" title="4.4修改 sshd 配置文件"></a>4.4修改 sshd 配置文件</h3><p>执行<code>vi /etc/ssh/sshd_config</code> 找到以下参数进行更改：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RSAAuthentication yes</span><br><span class="line">PubkeyAuthentication yes</span><br></pre></td></tr></table></figure><p>重启 sshd 服务</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure><h3 id="4-5禁用密码登录"><a href="#4-5禁用密码登录" class="headerlink" title="4.5禁用密码登录"></a>4.5禁用密码登录</h3><p>在你确认密钥能成功登录后，如果需要禁用密码登录，请更改以下参数：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure><p>重启 sshd 服务</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
       <categories>
-        <category>教程</category>
+          
+          <category> 笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>宝塔</tag>
-        <tag>frp</tag>
-        <tag>vps</tag>
-        <tag>nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo+Github pages搭建教程</title>
-    <url>/2022/01/14/hexo/</url>
-    <content><![CDATA[<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br><span class="line">hexo deploy</span><br><span class="line">hexo new <span class="string">&quot;postname&quot;</span></span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure>
-
-<h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">git add . &amp;&amp; git commit <span class="literal">-m</span> <span class="string">&quot;备份 Hexo 源文件&quot;</span> &amp;&amp; git push origin master</span><br></pre></td></tr></table></figure>
-
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> vps </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>群晖搭建Alist网盘列表教程</title>
+      <link href="/2022/01/22/alist/"/>
+      <url>/2022/01/22/alist/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Alist是一款支持本地存储、阿里云盘、天翼云盘、蓝奏云等多种存储的目录文件列表程序，支持 web 浏览与 webdav，完美解决了单个网盘容量不足、网盘数量太多不方便管理与使用的痛点。</p></blockquote><p>项目地址：<a href="https://github.com/Xhofe/alist">https://github.com/Xhofe/alist</a></p><p>官方文档：<a href="https://alist-doc.nn.ci/docs/intro">https://alist-doc.nn.ci/docs/intro</a></p><p>作者博客：<a href="https://www.nn.ci/archives/alist.html">https://www.nn.ci/archives/alist.html</a></p><p><img src="https://gitee.com/holob/imagebed/raw/master/alist_demo.webp" alt="Demo"></p><h2 id="1-Alist程序安装"><a href="#1-Alist程序安装" class="headerlink" title="1.Alist程序安装"></a>1.Alist程序安装</h2><p>为了使路径保持一致，在<code>docker</code>文件夹下，创建一个新文件夹命名为<code>alist</code>，在<code>alist</code>文件夹下，再创建一个新文件夹命名为<code>data</code>，用于存放数据库和配置文件。</p><h3 id="1-1命令行安装（推荐）"><a href="#1-1命令行安装（推荐）" class="headerlink" title="1.1命令行安装（推荐）"></a>1.1命令行安装（推荐）</h3><p>使用SSH工具登录群晖，并切换至root权限。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -i</span><br></pre></td></tr></table></figure><h4 id="稳定版"><a href="#稳定版" class="headerlink" title="稳定版"></a>稳定版</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always -v /volume1/docker/alist/data:/opt/alist/data -p 5244:5244 --name=&quot;alist&quot; xhofe/alist:latest</span><br></pre></td></tr></table></figure><h4 id="开发版"><a href="#开发版" class="headerlink" title="开发版"></a>开发版</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always -v /volume1/docker/alist/data:/opt/alist/data -p 5244:5244 --name=&quot;alist&quot; xhofe/alist:v2</span><br></pre></td></tr></table></figure><p><strong>注意：</strong><code>/volume1/docker/alist/data</code>应根据具体路径进行设置。</p><h3 id="1-2docker管理器安装"><a href="#1-2docker管理器安装" class="headerlink" title="1.2docker管理器安装"></a>1.2docker管理器安装</h3><p>在注册表中搜索 <code>alist</code> ，选择 <code>xhofe/alist</code>lastest版本，双击直接下载。</p><p><img src="https://gitee.com/holob/imagebed/raw/master/alist1.png" alt="下载镜像"></p><p>点击<code>映像</code>，双击刚刚下载的<code>xhofe/alist:latest</code>，开始创建容器。</p><p><img src="https://gitee.com/holob/imagebed/raw/master/alist2.png" alt="创建容器"></p><p>点击<code>高级设置</code>，为了方便使用，勾选<code>启用自动重新启动</code>。</p><p>之后依次对存储空间和端口进行设置，装载路径为<code>/opt/alist/data</code>。</p><p><img src="https://gitee.com/holob/imagebed/raw/master/alist6.png" alt="启用自动重新启动"></p><p><img src="https://gitee.com/holob/imagebed/raw/master/alist4.png" alt="端口设置"></p><p><img src="https://gitee.com/holob/imagebed/raw/master/alist5.png" alt="存储空间"></p><p>点击<code>应用</code>，再点击<code>下一步</code>，完成容器创建。</p><h2 id="2-Alist相关设置"><a href="#2-Alist相关设置" class="headerlink" title="2.Alist相关设置"></a>2.Alist相关设置</h2><p>在浏览器中输入 <code>http://群晖IP:5244</code>，输入初始密码<code>alist</code>，点击<code>登录</code>。</p><p>前端设置界面可以对站点标题、logo、头像等内容进行设置。</p><h3 id="自定义body"><a href="#自定义body" class="headerlink" title="自定义body"></a>自定义body</h3><p>显示站点运行时间（自用）</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;chakra-stack css-owjkmg&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;chakra-stack line0 css-g9cw6v&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span>&gt;</span>本站已经运行<span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">&quot;days&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">a</span>&gt;</span>天<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> s1 = <span class="string">&#x27;2022-01-15&#x27;</span>;</span></span><br><span class="line"><span class="javascript">s1 = <span class="keyword">new</span> <span class="built_in">Date</span>(s1.replace(<span class="regexp">/-/g</span>, <span class="string">&quot;/&quot;</span>));</span></span><br><span class="line"><span class="javascript">s2 = <span class="keyword">new</span> <span class="built_in">Date</span>();</span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> days = s2.getTime() - s1.getTime();</span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> number_of_days = <span class="built_in">parseInt</span>(days / (<span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span>));</span></span><br><span class="line"><span class="javascript"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;days&#x27;</span>).innerHTML = number_of_days;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure><h2 id="3-Alist添加账号"><a href="#3-Alist添加账号" class="headerlink" title="3.Alist添加账号"></a>3.Alist添加账号</h2><p>支持本地存储和十余种网络存储，添加账号具体方法参照<a href="https://alist-doc.nn.ci/docs/driver/base">官方文档</a>。</p><p><strong>注意：</strong>排序方向<code>asc</code>为正序，<code>desc</code>为倒序。</p><h2 id="4-Alist程序更新"><a href="#4-Alist程序更新" class="headerlink" title="4.Alist程序更新"></a>4.Alist程序更新</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker container ls  #获取容器ID</span><br><span class="line">docker stop containerID  #停止指定容器</span><br><span class="line">docker rm  containerID  #清除指定容器</span><br><span class="line">docker pull xhofe/alist:latest  #拉取最新镜像</span><br><span class="line">docker run -d --restart=always -v /volume1/docker/alist/data:/opt/alist/data -p 5244:5244 --name=&quot;alist&quot; xhofe/alist:latest  #运行镜像</span><br></pre></td></tr></table></figure><p>（可选）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker images  #获取镜像ID</span><br><span class="line">docker rmi imageID  #删除指定镜像</span><br></pre></td></tr></table></figure><h2 id="5-本地存储挂载"><a href="#5-本地存储挂载" class="headerlink" title="5.本地存储挂载"></a>5.本地存储挂载</h2><p>根目录路径应为容器内路径，挂载根目录用<code>/</code>，挂载指定文件夹，例如<code>/opt/alist/data</code>。</p><p><img src="https://gitee.com/holob/imagebed/raw/master/alist7.png" alt="本地存储挂载"></p>]]></content>
+      
+      
       <categories>
-        <category>教程</category>
+          
+          <category> 教程 </category>
+          
       </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/12/31/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Linux常用命令</title>
-    <url>/2022/02/02/linux-command/</url>
-    <content><![CDATA[<h2 id="1-防火墙"><a href="#1-防火墙" class="headerlink" title="1.防火墙"></a>1.防火墙</h2><p>CentOS 6 默认内置防火墙类型为iptables<br>CentOS 7 默认内置防火墙类型为firewalld</p>
-<h3 id="1-1查看防火墙状态"><a href="#1-1查看防火墙状态" class="headerlink" title="1.1查看防火墙状态"></a>1.1查看防火墙状态</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status firewalld</span><br></pre></td></tr></table></figure>
-<p>此处如果提示firewalld.service could not be found.则说明你的系统没有装防火墙，则不需要设置。</p>
-<h3 id="1-2开放指定端口"><a href="#1-2开放指定端口" class="headerlink" title="1.2开放指定端口"></a>1.2开放指定端口</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=***/tcp --permanent</span><br></pre></td></tr></table></figure>
-<h3 id="1-3关闭指定端口"><a href="#1-3关闭指定端口" class="headerlink" title="1.3关闭指定端口"></a>1.3关闭指定端口</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone=public --remove-port=***/tcp --permanent</span><br></pre></td></tr></table></figure>
-<p>–permanent参数表示永久生效，没有此参数重启后失效。</p>
-<h3 id="1-4其他常用命令"><a href="#1-4其他常用命令" class="headerlink" title="1.4其他常用命令"></a>1.4其他常用命令</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start firewalld #启动防火墙</span><br><span class="line">firewall-cmd --reload #重启firewall</span><br><span class="line">systemctl stop firewalld.service #停止firewall</span><br><span class="line">systemctl enable firewalld #设置开机启动</span><br><span class="line">systemctl disable firewalld.service #禁止firewall开机启动</span><br><span class="line">firewall-cmd --state #查看默认防火墙状态（关闭后显示notrunning，开启后显示running）</span><br><span class="line">firewall-cmd --permanent --list-port #查看已开放的端口</span><br></pre></td></tr></table></figure>
-<h2 id="2-修改SSH默认22端口"><a href="#2-修改SSH默认22端口" class="headerlink" title="2.修改SSH默认22端口"></a>2.修改SSH默认22端口</h2><p>适用系统：CentOS/Debian/Ubuntu Linux</p>
-<h2 id="2-1备份原sshd配置文件"><a href="#2-1备份原sshd配置文件" class="headerlink" title="2.1备份原sshd配置文件"></a>2.1备份原sshd配置文件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup</span><br></pre></td></tr></table></figure>
-<h2 id="2-2修改sshd配置文件"><a href="#2-2修改sshd配置文件" class="headerlink" title="2.2修改sshd配置文件"></a>2.2修改sshd配置文件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
-<p>查找<code>Port 22</code>，有可能是注释的（即前面有<code>#</code>号，有的话删掉<code>#</code>号）。<br>在<code>Port 22</code>下面添加一行<code>Port 3322</code> ，3322为你更改SSH后的端口。<br>这里建议先保留原来的22端口，待新的SSH端口测试正常工作后再删掉原<code>Port 22</code>端口行。<br>修改完成后保存。</p>
-<h2 id="2-3重启SSH服务器"><a href="#2-3重启SSH服务器" class="headerlink" title="2.3重启SSH服务器"></a>2.3重启SSH服务器</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl restart sshd #重启SSH服务器</span><br></pre></td></tr></table></figure>
-<p>如果没有systemctl的话可以执行<code>/etc/init.d/sshd restart</code> 或 <code>/etc/init.d/ssh restart</code>。<br>如果没有报错的话就生效了，可以 <code>ss -ntl</code> 或 <code>netstat -ntl</code> 查看一下端口。</p>
-<h2 id="2-4防火墙、安全组规则设置"><a href="#2-4防火墙、安全组规则设置" class="headerlink" title="2.4防火墙、安全组规则设置"></a>2.4防火墙、安全组规则设置</h2><p>iptables添加SSH新端口规则：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iptables -A INPUT -p tcp --dport 3322 -j ACCEPT #3322为新的端口</span><br></pre></td></tr></table></figure>
-<p>然后保存iptables规则</p>
-<p>firewalld添加SSH新端口规则：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --zone=public --add-port=3322/tcp #3322为新的端口</span><br><span class="line">firewall-cmd --reload #重载firewalld</span><br></pre></td></tr></table></figure>
-<p>阿里云之类的安全组规则添加SSH新端口规则：阿里云之类的有安全组之类设置的云服务器一定要在安全组规则里将新端口添加到“入方向”的允许规则。</p>
-<h2 id="2-SSH软件连接测试"><a href="#2-SSH软件连接测试" class="headerlink" title="2.SSH软件连接测试"></a>2.SSH软件连接测试</h2><p>添加上新的SSH端口后一定要通过putty、xshell之类的SSH软件连接测试一下，测试可以正常连接然后再编辑 <code>/etc/ssh/sshd_config</code> 将Port 22 这一行直接删除或这一行前面加 # 注释掉，然后再按前面的命令重启sshd服务。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 群晖 </tag>
+            
+            <tag> alist </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker常用命令</title>
+      <link href="/2022/01/14/docker-command/"/>
+      <url>/2022/01/14/docker-command/</url>
+      
+        <content type="html"><![CDATA[<p>本文为笔者使用docker命令的记录，方便以后查询、补充。</p><p>笔者非专业人士，如有错误，敬请指正。</p><h2 id="1-容器命令"><a href="#1-容器命令" class="headerlink" title="1.容器命令"></a>1.容器命令</h2><h3 id="1-1启动容器"><a href="#1-1启动容器" class="headerlink" title="1.1启动容器"></a>1.1启动容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker start my_container #启动一个已有的容器</span><br><span class="line">docker run my_image #创建一个新容器并启动</span><br></pre></td></tr></table></figure><p>注意：容器可以通过容器的 ID 或容器的名称来引用。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d my_image #-d是—detach的缩写，指在后台运行容器，允许您在容器运行时将终端用于其他命令。</span><br></pre></td></tr></table></figure><h3 id="1-2检查容器状态"><a href="#1-2检查容器状态" class="headerlink" title="1.2检查容器状态"></a>1.2检查容器状态</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker ls #列出运行中的容器，同时提供关于容器有用的信息。</span><br><span class="line">docker ls -a -s #-a是–all的缩写，列出所有容器（不仅仅是正在运行中的容器）,-s是—size的缩写，列出每个容器的大小。</span><br><span class="line">docker inspect my_container #查看有关容器的信息</span><br><span class="line">docker logs my_container #列出容器日志</span><br></pre></td></tr></table></figure><h3 id="1-3终止容器"><a href="#1-3终止容器" class="headerlink" title="1.3终止容器"></a>1.3终止容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker stop my_container #停止一个或多个正在运行的容器,在容器关闭之前提供默认10秒以完成任何进程。</span><br><span class="line">docker kill my_container #立即停止一个或多个正在运行的容器，建议使用stop命令。</span><br><span class="line">docker kill $(docker ps -q) #终止所有运行中的容器</span><br></pre></td></tr></table></figure><h3 id="1-4删除容器"><a href="#1-4删除容器" class="headerlink" title="1.4删除容器"></a>1.4删除容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker rm my_container #删除一个或多个容器</span><br><span class="line">docker rm $(docker ps -a -q) #删除所有不在运行中的容器</span><br></pre></td></tr></table></figure><h2 id="2-镜像命令"><a href="#2-镜像命令" class="headerlink" title="2.镜像命令"></a>2.镜像命令</h2><h2 id="2-1检查镜像"><a href="#2-1检查镜像" class="headerlink" title="2.1检查镜像"></a>2.1检查镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image ls  #列出你的镜像以及每个镜像的大小</span><br></pre></td></tr></table></figure><h3 id="2-2清理镜像"><a href="#2-2清理镜像" class="headerlink" title="2.2清理镜像"></a>2.2清理镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image rm my_image  #删除指定镜像。如果镜像被保存在镜像仓库中，那么该镜像在那依旧可用。</span><br></pre></td></tr></table></figure><p>参考链接</p><ol><li><p>Docker 文档：<a href="https://docs.docker.com/engine/reference/commandline/cli/">https://docs.docker.com/engine/reference/commandline/cli/</a></p></li><li><p>Docker 命令行入门大全：<a href="https://www.infoq.cn/article/s3qkg9lvbxplmaiqjame">https://www.infoq.cn/article/s3qkg9lvbxplmaiqjame</a></p></li></ol>]]></content>
+      
+      
       <categories>
-        <category>笔记</category>
+          
+          <category> 笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>谁言寸草心，报得三春晖</title>
-    <url>/2022/01/05/mom/</url>
-    <content><![CDATA[<blockquote>
-<p>我慢慢地、慢慢地了解到，所谓父女母子一场，只不过意味着，你和他的缘分就是今生今世不断地在目送他的背影渐行渐远。你站在小路的这一端，看着他逐渐消失在小路转弯的地方，而且，他用背影默默地告诉你，不用追。</p>
-</blockquote>
-<p>细想起来，我很少陪家人去医院。之前是因为在外地读书，很多事情在我完全不知道的时候就发生了、结束了。回到家乡参加工作之后，因为有姐姐照顾，有弟弟撑腰，很少有机会需要我陪着。</p>
-<p>上周四晚上拿肉夹馍回家，看到妈妈在烙饼，侄子侄女在看电视玩耍，一切安好。直到看到弟弟，他告诉我当天早晨妈妈肚子疼得厉害，问了医生怀疑是结石，打算明天上午去医院检查。刚好赶上单位不是很忙，我说跟着一起去医院。</p>
-<p>周五一早，妈妈打电话给我，让我不要去医院了，好不容易休息一上午，在家看孩子吧。中午，姐姐告诉我说，检查结果是肾结石，下午碎石。</p>
-<p>匆忙吃完午饭，我和妈妈、姐姐、弟弟一起到医院。等待治疗的时候，我接到了单位同事的电话，有点事需要处理。因为也不是很急，想等妈妈做完再回单位。期间，妈妈说了好几次，让我不要等了，回单位赶紧把事情处理完，早点回去看孩子。我一直坚持说，再等会吧。</p>
-<p>前面一位70多岁的老人治疗结束后，我和家人一起走进略显阴森和拥挤的治疗室。治疗床两边是床板，中间是悬空的，还有一个类似水球的东西，旁边有个冲击波仪器。</p>
-<p>妈妈在床板上趴下，医生调试仪器之后说，尽量不要动，需要等一会。几分钟后，妈妈又让我快去单位吧。姐姐在旁边对妈妈说，你别管了哈。然后轻声对我说，你快走吧。我心想，继续留在那里可能妈妈也没办法安心治疗，就点点头，走出了医院。</p>
-<p>下午四点左右到达单位，过了一会，接到姐姐的电话，她说让我不要担心，已经做完了。我忙完手里的工作，到了晚上六点多。</p>
-<p>时至今日，我仍然在想，在如此阴森、潮湿的房间里接受治疗的病人，肯定需要家人的陪伴。如果，当时在治疗室里的人是我的孩子，想必我总会坚持陪着做完治疗。</p>
-<p>一直以来，我做的不是什么惊天地的伟业。那只是一份工作，仅此而已。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hexo+Github pages搭建教程</title>
+      <link href="/2022/01/14/hexo/"/>
+      <url>/2022/01/14/hexo/</url>
+      
+        <content type="html"><![CDATA[<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br><span class="line">hexo deploy</span><br><span class="line">hexo new <span class="string">&quot;postname&quot;</span></span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure><h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add . &amp;&amp; git commit <span class="literal">-m</span> <span class="string">&quot;备份 Hexo 源文件&quot;</span> &amp;&amp; git push origin master</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
       <categories>
-        <category>生活</category>
+          
+          <category> 教程 </category>
+          
       </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown常用语法</title>
-    <url>/2021/12/31/markdown-notes/</url>
-    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。 它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。</p>
-<p>由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。 如GitHub、Reddit、Diaspora、Stack Exchange、OpenStreetMap 、SourceForge、简书等，甚至还能被使用来撰写电子书。</p>
-<h2 id="1-标题"><a href="#1-标题" class="headerlink" title="1.标题"></a>1.标题</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"><span class="section">### 三级标题</span></span><br><span class="line"><span class="section">#### 四级标题</span></span><br><span class="line"><span class="section">##### 五级标题</span></span><br><span class="line"><span class="section">###### 六级标题</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-字体"><a href="#2-字体" class="headerlink" title="2.字体"></a>2.字体</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> <span class="emphasis">*斜体*</span></span><br><span class="line"><span class="bullet">2.</span> <span class="strong">**加粗**</span></span><br><span class="line"><span class="bullet">3.</span> <span class="strong">**<span class="emphasis">*加粗斜体<span class="strong">**<span class="emphasis">*</span></span></span></span></span><br><span class="line"><span class="emphasis"><span class="strong"><span class="emphasis"><span class="strong">4. ~~删除线~~</span></span></span></span></span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<ol>
-<li><em>斜体</em></li>
-<li><strong>加粗</strong></li>
-<li><em><strong>加粗斜体</strong></em></li>
-<li><del>删除线</del></li>
-</ol>
-<h2 id="3-列表"><a href="#3-列表" class="headerlink" title="3.列表"></a>3.列表</h2><h3 id="3-1无序列表"><a href="#3-1无序列表" class="headerlink" title="3.1无序列表"></a>3.1无序列表</h3><p>使用 * ，+ ， - 表示无序列表。</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">*</span> 无序列表项1</span><br><span class="line"><span class="bullet">+</span> 无序列表项2</span><br><span class="line"><span class="bullet">-</span> 无序列表项3</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<ul>
-<li>无序列表项1</li>
-</ul>
-<ul>
-<li>无序列表项2</li>
-</ul>
-<ul>
-<li>无序列表项3</li>
-</ul>
-<h3 id="3-2有序列表"><a href="#3-2有序列表" class="headerlink" title="3.2有序列表"></a>3.2有序列表</h3><p>使用数字加 . 表示有序列表。</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 有序列表项1</span><br><span class="line"><span class="bullet">2.</span> 有序列表项2</span><br><span class="line"><span class="bullet">3.</span> 有序列表项3</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<ol>
-<li>有序列表项1</li>
-<li>有序列表项2</li>
-<li>有序列表项3</li>
-</ol>
-<h2 id="4-超链接"><a href="#4-超链接" class="headerlink" title="4.超链接"></a>4.超链接</h2><h3 id="4-1行内式"><a href="#4-1行内式" class="headerlink" title="4.1行内式"></a>4.1行内式</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[<span class="string">小城故事</span>](<span class="link">https://holob.github.io</span>)</span><br></pre></td></tr></table></figure>
-<p>输出结果：<br><a href="https://holob.github.io/">小城故事</a></p>
-<h3 id="4-2参考式"><a href="#4-2参考式" class="headerlink" title="4.2参考式"></a>4.2参考式</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">我经常去的几个网站[<span class="string">Google</span>][<span class="symbol">1</span>]、[<span class="string">github</span>][<span class="symbol">2</span>]以及[<span class="string">自己的博客</span>][<span class="symbol">3</span>]</span><br><span class="line">百度是一个不错的[<span class="string">网站</span>][<span class="symbol">4</span>]。</span><br><span class="line"></span><br><span class="line">[<span class="symbol">1</span>]:<span class="link">http://www.google.com</span></span><br><span class="line">[<span class="symbol">2</span>]:<span class="link">http://www.github.com</span></span><br><span class="line">[<span class="symbol">3</span>]:<span class="link">https://holob.github.io</span></span><br><span class="line">[<span class="symbol">4</span>]:<span class="link">http://www.baidu.com</span></span><br></pre></td></tr></table></figure>
-<p>输出结果：<br>我经常去的几个网站<a href="http://www.google.com/">Google</a>、<a href="http://www.github.com/">github</a>以及<a href="https://holob.github.io/">自己的博客</a><br>百度是一个不错的<a href="http://www.baidu.com/">网站</a>。</p>
-<h3 id="4-3自动链接"><a href="#4-3自动链接" class="headerlink" title="4.3自动链接"></a>4.3自动链接</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> <span class="xml">&lt;https://baidu.com&gt;</span></span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<ol>
-<li><a href="https://baidu.com/">https://baidu.com</a></li>
-</ol>
-<h2 id="5-引用"><a href="#5-引用" class="headerlink" title="5.引用"></a>5.引用</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&gt;Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。</span><br><span class="line">&gt;&gt;它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。</span><br><span class="line">&gt;&gt;&gt;由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<blockquote>
-<p>Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。</p>
-<blockquote>
-<p>它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。</p>
-<blockquote>
-<p>由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<h2 id="6-图片"><a href="#6-图片" class="headerlink" title="6.图片"></a>6.图片</h2><h3 id="6-1行内式"><a href="#6-1行内式" class="headerlink" title="6.1行内式"></a>6.1行内式</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">蓝胖子哆啦A梦</span><br><span class="line">![<span class="string">蓝胖子哆啦A梦</span>](<span class="link">https://gitee.com/holob/imagebed/raw/master/doraemon.jpg</span>)</span><br></pre></td></tr></table></figure>
-<p>输出结果：<br>蓝胖子哆啦A梦<br><img src="https://gitee.com/holob/imagebed/raw/master/doraemon.jpg" alt="蓝胖子哆啦A梦"></p>
-<h3 id="6-2参考式"><a href="#6-2参考式" class="headerlink" title="6.2参考式"></a>6.2参考式</h3><p>同时添加多张图片的时候比较方便。</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">蓝胖子哆啦A梦</span><br><span class="line">![<span class="string">蓝胖子哆啦A梦</span>][<span class="symbol">pic</span>]</span><br><span class="line"></span><br><span class="line">[<span class="symbol">pic</span>]: <span class="link">https://gitee.com/holob/imagebed/raw/master/doraemon.jpg</span></span><br></pre></td></tr></table></figure>
-<p>输出结果：<br>蓝胖子哆啦A梦<br><img src="https://gitee.com/holob/imagebed/raw/master/doraemon.jpg" alt="蓝胖子哆啦A梦"></p>
-<h2 id="7-目录"><a href="#7-目录" class="headerlink" title="7.目录"></a>7.目录</h2><p>在添加[TOC]的位置自动生成目录。</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[TOC]</span><br></pre></td></tr></table></figure>
-
-<h2 id="8-表格"><a href="#8-表格" class="headerlink" title="8.表格"></a>8.表格</h2><p>表格由 | 、— 和 ：组成。<br>:— 表示左对齐； —：表示右对齐；:—：表示居中。<br><strong>注意：</strong> 在Hexo博客中使用，表格需要与正文空两行才能正常显示。</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">| 姓名 | 性别 | 年龄 |</span><br><span class="line">| :--- | :---: | ---: |</span><br><span class="line">| 爸 | 男 | 40 |</span><br><span class="line">| 妈 | 女 | 40 |</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<table>
-<thead>
-<tr>
-<th align="left">姓名</th>
-<th align="center">性别</th>
-<th align="right">年龄</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">爸</td>
-<td align="center">男</td>
-<td align="right">40</td>
-</tr>
-<tr>
-<td align="left">妈</td>
-<td align="center">女</td>
-<td align="right">40</td>
-</tr>
-</tbody></table>
-<h2 id="9-角标"><a href="#9-角标" class="headerlink" title="9.角标"></a>9.角标</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">H<span class="xml"><span class="tag">&lt;<span class="name">sub</span>&gt;</span></span>2<span class="xml"><span class="tag">&lt;/<span class="name">sub</span>&gt;</span></span>O  CO<span class="xml"><span class="tag">&lt;<span class="name">sub</span>&gt;</span></span>2<span class="xml"><span class="tag">&lt;/<span class="name">sub</span>&gt;</span></span></span><br><span class="line">爆米花<span class="xml"><span class="tag">&lt;<span class="name">sup</span>&gt;</span></span>TM<span class="xml"><span class="tag">&lt;/<span class="name">sup</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>输出结果：<br>H<sub>2</sub>O  CO<sub>2</sub><br>爆米花<sup>TM</sup></p>
-<h2 id="10-代码块"><a href="#10-代码块" class="headerlink" title="10.代码块"></a>10.代码块</h2><h3 id="10-1行内代码"><a href="#10-1行内代码" class="headerlink" title="10.1行内代码"></a>10.1行内代码</h3><p>使用反引号（~ 键）插入代码。</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">运行 <span class="code">`hexo clean`</span> 清除缓存，运行 <span class="code">`hexo g`</span> 生成页面。</span><br></pre></td></tr></table></figure>
-<p>输出结果：<br>运行 <code>hexo clean</code> 清除缓存，运行 <code>hexo g</code> 生成页面。</p>
-<h3 id="10-2多行代码"><a href="#10-2多行代码" class="headerlink" title="10.2多行代码"></a>10.2多行代码</h3><p>使用三个反引号（~ 键）插入多行代码。<br><strong>注意：</strong> 第一行三个反引号后面，输入代码块所使用的语言，实现代码高亮。</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">3个`markdown</span><br><span class="line">插入多行代码</span><br><span class="line">3个`</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">插入多行代码</span><br></pre></td></tr></table></figure>
-<h3 id="10-3缩进式插入多行代码"><a href="#10-3缩进式插入多行代码" class="headerlink" title="10.3缩进式插入多行代码"></a>10.3缩进式插入多行代码</h3><p><strong>注意：</strong> </p>
-<ul>
-<li>缩进式插入前方必须有空行</li>
-<li>缩进 4 个空格或是 1 个制表符（Tab键）</li>
-<li>一个代码区块会一直持续到没有缩进的那一行（或是文件结尾）</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">此处有空行</span><br><span class="line"><span class="code">    hexo clean</span></span><br><span class="line"><span class="code">    hexo g</span></span><br><span class="line"><span class="code">    hexo s</span></span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<pre><code>hexo clean
-hexo g
-hexo s
-</code></pre>
-<h2 id="11-分割线"><a href="#11-分割线" class="headerlink" title="11.分割线"></a>11.分割线</h2><p>连续三个_或者三个*。</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="strong">__<span class="emphasis">_</span></span></span><br><span class="line"><span class="emphasis"><span class="strong"><span class="strong">**<span class="emphasis">*</span></span></span></span></span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<hr>
-<hr>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>如有错误，敬请指正。<br>如有侵权，请联系删除。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>谁言寸草心，报得三春晖</title>
+      <link href="/2022/01/05/mom/"/>
+      <url>/2022/01/05/mom/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>我慢慢地、慢慢地了解到，所谓父女母子一场，只不过意味着，你和他的缘分就是今生今世不断地在目送他的背影渐行渐远。你站在小路的这一端，看着他逐渐消失在小路转弯的地方，而且，他用背影默默地告诉你，不用追。</p></blockquote><p>细想起来，我很少陪家人去医院。之前是因为在外地读书，很多事情在我完全不知道的时候就发生了、结束了。回到家乡参加工作之后，因为有姐姐照顾，有弟弟撑腰，很少有机会需要我陪着。</p><p>上周四晚上拿肉夹馍回家，看到妈妈在烙饼，侄子侄女在看电视玩耍，一切安好。直到看到弟弟，他告诉我当天早晨妈妈肚子疼得厉害，问了医生怀疑是结石，打算明天上午去医院检查。刚好赶上单位不是很忙，我说跟着一起去医院。</p><p>周五一早，妈妈打电话给我，让我不要去医院了，好不容易休息一上午，在家看孩子吧。中午，姐姐告诉我说，检查结果是肾结石，下午碎石。</p><p>匆忙吃完午饭，我和妈妈、姐姐、弟弟一起到医院。等待治疗的时候，我接到了单位同事的电话，有点事需要处理。因为也不是很急，想等妈妈做完再回单位。期间，妈妈说了好几次，让我不要等了，回单位赶紧把事情处理完，早点回去看孩子。我一直坚持说，再等会吧。</p><p>前面一位70多岁的老人治疗结束后，我和家人一起走进略显阴森和拥挤的治疗室。治疗床两边是床板，中间是悬空的，还有一个类似水球的东西，旁边有个冲击波仪器。</p><p>妈妈在床板上趴下，医生调试仪器之后说，尽量不要动，需要等一会。几分钟后，妈妈又让我快去单位吧。姐姐在旁边对妈妈说，你别管了哈。然后轻声对我说，你快走吧。我心想，继续留在那里可能妈妈也没办法安心治疗，就点点头，走出了医院。</p><p>下午四点左右到达单位，过了一会，接到姐姐的电话，她说让我不要担心，已经做完了。我忙完手里的工作，到了晚上六点多。</p><p>时至今日，我仍然在想，在如此阴森、潮湿的房间里接受治疗的病人，肯定需要家人的陪伴。如果，当时在治疗室里的人是我的孩子，想必我总会坚持陪着做完治疗。</p><p>一直以来，我做的不是什么惊天地的伟业。那只是一份工作，仅此而已。</p>]]></content>
+      
+      
       <categories>
-        <category>笔记</category>
+          
+          <category> 生活 </category>
+          
       </categories>
-      <tags>
-        <tag>markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>群晖DSM系统常见问题汇总</title>
-    <url>/2022/02/04/nas-questions/</url>
-    <content><![CDATA[<h2 id="1-Docker容器时间时区不对"><a href="#1-Docker容器时间时区不对" class="headerlink" title="1.Docker容器时间时区不对"></a>1.Docker容器时间时区不对</h2><p>开启容器，并点击<code>详情-终端机-新增</code>。通过命令启动，并输入命令<code>/bin/sh</code>以进入终端。点击新建立的终端<code>sh</code>，进入终端输入命令<code>date</code>查看容器时间。开启DSM ssh，并获取root权限，用root登陆ssh终端。输入命令<code>sudo docker ps</code>获取时间不对容器的id。<br>执行如下命令：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker cp /etc/localtime containerID:/etc/localtime</span><br></pre></td></tr></table></figure>
-<p>执行命令后，返回终端<code>sh</code>，输入命令<code>date</code>查看容器时间是否变化。<br>时间修改成功后，该容器关闭等操作均不会受影响。如果删除容器重新建立，则需要重复该方法。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>道听途说</title>
+      <link href="/2022/01/01/hearsay/"/>
+      <url>/2022/01/01/hearsay/</url>
+      
+        <content type="html"><![CDATA[<h2 id="女人与孩子"><a href="#女人与孩子" class="headerlink" title="女人与孩子"></a>女人与孩子</h2><p>连续两天被催着打新冠疫苗加强针。前天下午，我第一次走进小镇的卫生院。负责登记信息的护士旁边还围着三四名护士，她们一边嗑瓜子，一边闲聊。地上散落了一些瓜子皮。</p><p>打完针，发现旁边有个肉夹馍的店铺，走进去打算买几个。店铺面积不小，灯光却很暗。老板和老板娘两口子面相看起来很质朴。一会走进来一个孕妇，可能怀孕8个多月。</p><p>北方冬天的傍晚，那个女人就套着一件卫衣，没穿羽绒服，挺着大肚子，骑电动车出来买火腿。<br>老板娘问那个女人，肚子这么大了，咋还不生呢？女人说，不出来就等着呗。</p><p>女人走后，老板娘和我闲聊几句。那个女人啊，跟着前夫过了几年没有孩子，前夫不要她了，再婚之后加上肚子里这个就生了三个娃娃了。</p><p>我买完肉夹馍，给父母送了几个。我挺喜欢那个老板娘的，虽然他家的馍不好吃。<br>（2021年12月30日）</p>]]></content>
+      
+      
       <categories>
-        <category>笔记</category>
+          
+          <category> 生活 </category>
+          
       </categories>
-      <tags>
-        <tag>群晖</tag>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VPS一键dd纯净系统并更改秘钥登录</title>
-    <url>/2022/02/02/vps-centos/</url>
-    <content><![CDATA[<blockquote>
-<p>一些VPS商家默认配置非纯净系统，为用户使用带来不便。本文以CentOS为例，记录使用一键脚本重装纯净系统，并设置仅密钥登录防止暴力破解。</p>
-</blockquote>
-<h2 id="1-重装系统"><a href="#1-重装系统" class="headerlink" title="1.重装系统"></a>1.重装系统</h2><p>使用一键网络重装系统脚本，可以通过Internet重新安装Linux和Windows以及常见的操作系统。<br>具体操作方法如下：<br>CentOS系统</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum update -y</span><br><span class="line">yum install -y xz openssl gawk file</span><br></pre></td></tr></table></figure>
-<p>下载脚本(root用户)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 别人备份的镜像</span></span><br><span class="line">wget http://shell.p1e.cn/reinstall/dd.sh &amp;&amp; chmod +x dd.sh &amp;&amp; ./dd.sh</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 原版地址</span></span><br><span class="line">wget --no-check-certificate -qO ~/Network-Reinstall-System-Modify.sh &#x27;https://www.cxthhhhh.com/tech-tools/Network-Reinstall-System-Modify/Network-Reinstall-System-Modify.sh&#x27; &amp;&amp; chmod a+x ~/Network-Reinstall-System-Modify.sh</span><br></pre></td></tr></table></figure>
-<p>安装Linux系统</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 一键网络重装纯净CentOS 7</span></span><br><span class="line">bash ~/Network-Reinstall-System-Modify.sh -CentOS_7</span><br></pre></td></tr></table></figure>
-<p>默认密码：cxthhhhh.com<br>本文仅列出CentOS 7安装方法，更多脚本使用方法参考：<a href="https://www.cxthhhhh.com/network-reinstall-system-modify">https://www.cxthhhhh.com/network-reinstall-system-modify</a></p>
-<h2 id="2-修改密码"><a href="#2-修改密码" class="headerlink" title="2.修改密码"></a>2.修改密码</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure>
-<p>注意：输入密码不会显示，输入完毕直接回车即可。</p>
-<h2 id="3-同步时间"><a href="#3-同步时间" class="headerlink" title="3.同步时间"></a>3.同步时间</h2><h3 id="3-1查看时间"><a href="#3-1查看时间" class="headerlink" title="3.1查看时间"></a>3.1查看时间</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date -R</span><br></pre></td></tr></table></figure>
-<h3 id="3-2设置时区为北京时间"><a href="#3-2设置时区为北京时间" class="headerlink" title="3.2设置时区为北京时间"></a>3.2设置时区为北京时间</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rm -rf /etc/localtime</span><br><span class="line">ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
-<h3 id="3-3NTP-同步时间协议"><a href="#3-3NTP-同步时间协议" class="headerlink" title="3.3NTP 同步时间协议"></a>3.3NTP 同步时间协议</h3><p>CentOS系统</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install ntp ntpdate -y</span><br></pre></td></tr></table></figure>
-<p>接下来我们需要先停止 NTP 服务器，再更新时间。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">service ntpd stop #停止 ntp 服务</span><br><span class="line">ntpdate us.pool.ntp.org #同步 ntp 时间</span><br><span class="line">service ntpd start #启动 ntp 服务</span><br></pre></td></tr></table></figure>
-<p>对完时间后，我们需要将当前时间和日期写入BIOS，避免重启后失效，命令如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hwclock -w</span><br></pre></td></tr></table></figure>
-<h2 id="4-密钥登录"><a href="#4-密钥登录" class="headerlink" title="4.密钥登录"></a>4.密钥登录</h2><h3 id="4-1生成密钥对"><a href="#4-1生成密钥对" class="headerlink" title="4.1生成密钥对"></a>4.1生成密钥对</h3><p>在远端VPS上执行如下命令，之后将私钥<code>id_rsa</code>文件下载到本地。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
-<h3 id="4-2安装公钥"><a href="#4-2安装公钥" class="headerlink" title="4.2安装公钥"></a>4.2安装公钥</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd .ssh/ </span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys #将公钥写入到 authorized_keys 文件</span><br></pre></td></tr></table></figure>
-<h3 id="4-3修改权限"><a href="#4-3修改权限" class="headerlink" title="4.3修改权限"></a>4.3修改权限</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod 600 authorized_keys</span><br><span class="line">chmod 700 ~/.ssh</span><br></pre></td></tr></table></figure>
-<h3 id="4-4修改-sshd-配置文件"><a href="#4-4修改-sshd-配置文件" class="headerlink" title="4.4修改 sshd 配置文件"></a>4.4修改 sshd 配置文件</h3><p>执行<code>vi /etc/ssh/sshd_config</code> 找到以下参数进行更改：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">RSAAuthentication yes</span><br><span class="line">PubkeyAuthentication yes</span><br></pre></td></tr></table></figure>
-<p>重启 sshd 服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure>
-<h3 id="4-5禁用密码登录"><a href="#4-5禁用密码登录" class="headerlink" title="4.5禁用密码登录"></a>4.5禁用密码登录</h3><p>在你确认密钥能成功登录后，如果需要禁用密码登录，请更改以下参数：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure>
-<p>重启 sshd 服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+        <tags>
+            
+            <tag> 见闻 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Markdown常用语法</title>
+      <link href="/2021/12/31/markdown-notes/"/>
+      <url>/2021/12/31/markdown-notes/</url>
+      
+        <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。 它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。</p><p>由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。 如GitHub、Reddit、Diaspora、Stack Exchange、OpenStreetMap 、SourceForge、简书等，甚至还能被使用来撰写电子书。</p><h2 id="1-标题"><a href="#1-标题" class="headerlink" title="1.标题"></a>1.标题</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"><span class="section">### 三级标题</span></span><br><span class="line"><span class="section">#### 四级标题</span></span><br><span class="line"><span class="section">##### 五级标题</span></span><br><span class="line"><span class="section">###### 六级标题</span></span><br></pre></td></tr></table></figure><h2 id="2-字体"><a href="#2-字体" class="headerlink" title="2.字体"></a>2.字体</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> <span class="emphasis">*斜体*</span></span><br><span class="line"><span class="bullet">2.</span> <span class="strong">**加粗**</span></span><br><span class="line"><span class="bullet">3.</span> <span class="strong">**<span class="emphasis">*加粗斜体<span class="strong">**<span class="emphasis">*</span></span></span></span></span><br><span class="line"><span class="emphasis"><span class="strong"><span class="emphasis"><span class="strong">4. ~~删除线~~</span></span></span></span></span><br></pre></td></tr></table></figure><p>输出结果：</p><ol><li><em>斜体</em></li><li><strong>加粗</strong></li><li><em><strong>加粗斜体</strong></em></li><li><del>删除线</del></li></ol><h2 id="3-列表"><a href="#3-列表" class="headerlink" title="3.列表"></a>3.列表</h2><h3 id="3-1无序列表"><a href="#3-1无序列表" class="headerlink" title="3.1无序列表"></a>3.1无序列表</h3><p>使用 * ，+ ， - 表示无序列表。</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">*</span> 无序列表项1</span><br><span class="line"><span class="bullet">+</span> 无序列表项2</span><br><span class="line"><span class="bullet">-</span> 无序列表项3</span><br></pre></td></tr></table></figure><p>输出结果：</p><ul><li>无序列表项1</li></ul><ul><li>无序列表项2</li></ul><ul><li>无序列表项3</li></ul><h3 id="3-2有序列表"><a href="#3-2有序列表" class="headerlink" title="3.2有序列表"></a>3.2有序列表</h3><p>使用数字加 . 表示有序列表。</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> 有序列表项1</span><br><span class="line"><span class="bullet">2.</span> 有序列表项2</span><br><span class="line"><span class="bullet">3.</span> 有序列表项3</span><br></pre></td></tr></table></figure><p>输出结果：</p><ol><li>有序列表项1</li><li>有序列表项2</li><li>有序列表项3</li></ol><h2 id="4-超链接"><a href="#4-超链接" class="headerlink" title="4.超链接"></a>4.超链接</h2><h3 id="4-1行内式"><a href="#4-1行内式" class="headerlink" title="4.1行内式"></a>4.1行内式</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">小城故事</span>](<span class="link">https://holob.github.io</span>)</span><br></pre></td></tr></table></figure><p>输出结果：<br><a href="https://holob.github.io/">小城故事</a></p><h3 id="4-2参考式"><a href="#4-2参考式" class="headerlink" title="4.2参考式"></a>4.2参考式</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">我经常去的几个网站[<span class="string">Google</span>][<span class="symbol">1</span>]、[<span class="string">github</span>][<span class="symbol">2</span>]以及[<span class="string">自己的博客</span>][<span class="symbol">3</span>]</span><br><span class="line">百度是一个不错的[<span class="string">网站</span>][<span class="symbol">4</span>]。</span><br><span class="line"></span><br><span class="line">[<span class="symbol">1</span>]:<span class="link">http://www.google.com</span></span><br><span class="line">[<span class="symbol">2</span>]:<span class="link">http://www.github.com</span></span><br><span class="line">[<span class="symbol">3</span>]:<span class="link">https://holob.github.io</span></span><br><span class="line">[<span class="symbol">4</span>]:<span class="link">http://www.baidu.com</span></span><br></pre></td></tr></table></figure><p>输出结果：<br>我经常去的几个网站<a href="http://www.google.com/">Google</a>、<a href="http://www.github.com/">github</a>以及<a href="https://holob.github.io/">自己的博客</a><br>百度是一个不错的<a href="http://www.baidu.com/">网站</a>。</p><h3 id="4-3自动链接"><a href="#4-3自动链接" class="headerlink" title="4.3自动链接"></a>4.3自动链接</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> <span class="xml">&lt;https://baidu.com&gt;</span></span><br></pre></td></tr></table></figure><p>输出结果：</p><ol><li><a href="https://baidu.com/">https://baidu.com</a></li></ol><h2 id="5-引用"><a href="#5-引用" class="headerlink" title="5.引用"></a>5.引用</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。</span><br><span class="line">&gt;&gt;它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。</span><br><span class="line">&gt;&gt;&gt;由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。</span><br></pre></td></tr></table></figure><p>输出结果：</p><blockquote><p>Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。</p><blockquote><p>它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。</p><blockquote><p>由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。</p></blockquote></blockquote></blockquote><h2 id="6-图片"><a href="#6-图片" class="headerlink" title="6.图片"></a>6.图片</h2><h3 id="6-1行内式"><a href="#6-1行内式" class="headerlink" title="6.1行内式"></a>6.1行内式</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">蓝胖子哆啦A梦</span><br><span class="line">![<span class="string">蓝胖子哆啦A梦</span>](<span class="link">https://gitee.com/holob/imagebed/raw/master/doraemon.jpg</span>)</span><br></pre></td></tr></table></figure><p>输出结果：<br>蓝胖子哆啦A梦<br><img src="https://gitee.com/holob/imagebed/raw/master/doraemon.jpg" alt="蓝胖子哆啦A梦"></p><h3 id="6-2参考式"><a href="#6-2参考式" class="headerlink" title="6.2参考式"></a>6.2参考式</h3><p>同时添加多张图片的时候比较方便。</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">蓝胖子哆啦A梦</span><br><span class="line">![<span class="string">蓝胖子哆啦A梦</span>][<span class="symbol">pic</span>]</span><br><span class="line"></span><br><span class="line">[<span class="symbol">pic</span>]: <span class="link">https://gitee.com/holob/imagebed/raw/master/doraemon.jpg</span></span><br></pre></td></tr></table></figure><p>输出结果：<br>蓝胖子哆啦A梦<br><img src="https://gitee.com/holob/imagebed/raw/master/doraemon.jpg" alt="蓝胖子哆啦A梦"></p><h2 id="7-目录"><a href="#7-目录" class="headerlink" title="7.目录"></a>7.目录</h2><p>在添加[TOC]的位置自动生成目录。</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[TOC]</span><br></pre></td></tr></table></figure><h2 id="8-表格"><a href="#8-表格" class="headerlink" title="8.表格"></a>8.表格</h2><p>表格由 | 、— 和 ：组成。<br>:— 表示左对齐； —：表示右对齐；:—：表示居中。<br><strong>注意：</strong> 在Hexo博客中使用，表格需要与正文空两行才能正常显示。</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 姓名 | 性别 | 年龄 |</span><br><span class="line">| :--- | :---: | ---: |</span><br><span class="line">| 爸 | 男 | 40 |</span><br><span class="line">| 妈 | 女 | 40 |</span><br></pre></td></tr></table></figure><p>输出结果：</p><table><thead><tr><th align="left">姓名</th><th align="center">性别</th><th align="right">年龄</th></tr></thead><tbody><tr><td align="left">爸</td><td align="center">男</td><td align="right">40</td></tr><tr><td align="left">妈</td><td align="center">女</td><td align="right">40</td></tr></tbody></table><h2 id="9-角标"><a href="#9-角标" class="headerlink" title="9.角标"></a>9.角标</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">H<span class="xml"><span class="tag">&lt;<span class="name">sub</span>&gt;</span></span>2<span class="xml"><span class="tag">&lt;/<span class="name">sub</span>&gt;</span></span>O  CO<span class="xml"><span class="tag">&lt;<span class="name">sub</span>&gt;</span></span>2<span class="xml"><span class="tag">&lt;/<span class="name">sub</span>&gt;</span></span></span><br><span class="line">爆米花<span class="xml"><span class="tag">&lt;<span class="name">sup</span>&gt;</span></span>TM<span class="xml"><span class="tag">&lt;/<span class="name">sup</span>&gt;</span></span></span><br></pre></td></tr></table></figure><p>输出结果：<br>H<sub>2</sub>O  CO<sub>2</sub><br>爆米花<sup>TM</sup></p><h2 id="10-代码块"><a href="#10-代码块" class="headerlink" title="10.代码块"></a>10.代码块</h2><h3 id="10-1行内代码"><a href="#10-1行内代码" class="headerlink" title="10.1行内代码"></a>10.1行内代码</h3><p>使用反引号（~ 键）插入代码。</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">运行 <span class="code">`hexo clean`</span> 清除缓存，运行 <span class="code">`hexo g`</span> 生成页面。</span><br></pre></td></tr></table></figure><p>输出结果：<br>运行 <code>hexo clean</code> 清除缓存，运行 <code>hexo g</code> 生成页面。</p><h3 id="10-2多行代码"><a href="#10-2多行代码" class="headerlink" title="10.2多行代码"></a>10.2多行代码</h3><p>使用三个反引号（~ 键）插入多行代码。<br><strong>注意：</strong> 第一行三个反引号后面，输入代码块所使用的语言，实现代码高亮。</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3个`markdown</span><br><span class="line">插入多行代码</span><br><span class="line">3个`</span><br></pre></td></tr></table></figure><p>输出结果：</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">插入多行代码</span><br></pre></td></tr></table></figure><h3 id="10-3缩进式插入多行代码"><a href="#10-3缩进式插入多行代码" class="headerlink" title="10.3缩进式插入多行代码"></a>10.3缩进式插入多行代码</h3><p><strong>注意：</strong> </p><ul><li>缩进式插入前方必须有空行</li><li>缩进 4 个空格或是 1 个制表符（Tab键）</li><li>一个代码区块会一直持续到没有缩进的那一行（或是文件结尾）</li></ul><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">此处有空行</span><br><span class="line"><span class="code">    hexo clean</span></span><br><span class="line"><span class="code">    hexo g</span></span><br><span class="line"><span class="code">    hexo s</span></span><br></pre></td></tr></table></figure><p>输出结果：</p><pre><code>hexo cleanhexo ghexo s</code></pre><h2 id="11-分割线"><a href="#11-分割线" class="headerlink" title="11.分割线"></a>11.分割线</h2><p>连续三个_或者三个*。</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">__<span class="emphasis">_</span></span></span><br><span class="line"><span class="emphasis"><span class="strong"><span class="strong">**<span class="emphasis">*</span></span></span></span></span><br></pre></td></tr></table></figure><p>输出结果：</p><hr><hr><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>如有错误，敬请指正。<br>如有侵权，请联系删除。</p>]]></content>
+      
+      
       <categories>
-        <category>笔记</category>
+          
+          <category> 笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>vps</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> markdown </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2021/12/31/hello-world/"/>
+      <url>/2021/12/31/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
 </search>
