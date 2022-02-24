@@ -173,20 +173,6 @@
 
   
   <url>
-    <loc>https://blog.holob.cn/tags/%E7%BE%A4%E6%99%96/</loc>
-    <lastmod>2022-02-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.holob.cn/tags/alist/</loc>
-    <lastmod>2022-02-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.holob.cn/tags/%E5%AE%9D%E5%A1%94/</loc>
     <lastmod>2022-02-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -209,6 +195,20 @@
   
   <url>
     <loc>https://blog.holob.cn/tags/nginx/</loc>
+    <lastmod>2022-02-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.holob.cn/tags/%E7%BE%A4%E6%99%96/</loc>
+    <lastmod>2022-02-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.holob.cn/tags/alist/</loc>
     <lastmod>2022-02-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
