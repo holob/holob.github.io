@@ -405,21 +405,6 @@ hexo s
       </tags>
   </entry>
   <entry>
-    <title>群晖DSM系统常见问题汇总</title>
-    <url>/2022/02/04/nas-questions/</url>
-    <content><![CDATA[<h2 id="1-Docker容器时间时区不对"><a href="#1-Docker容器时间时区不对" class="headerlink" title="1.Docker容器时间时区不对"></a>1.Docker容器时间时区不对</h2><p>开启容器，并点击<code>详情-终端机-新增</code>。通过命令启动，并输入命令<code>/bin/sh</code>以进入终端。点击新建立的终端<code>sh</code>，进入终端输入命令<code>date</code>查看容器时间。开启DSM ssh，并获取root权限，用root登陆ssh终端。输入命令<code>sudo docker ps</code>获取时间不对容器的id。<br>执行如下命令：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker cp /etc/localtime containerID:/etc/localtime</span><br></pre></td></tr></table></figure>
-<p>执行命令后，返回终端<code>sh</code>，输入命令<code>date</code>查看容器时间是否变化。<br>时间修改成功后，该容器关闭等操作均不会受影响。如果删除容器重新建立，则需要重复该方法。</p>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>群晖</tag>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>谁言寸草心，报得三春晖</title>
     <url>/2022/01/05/mom/</url>
     <content><![CDATA[<blockquote>
@@ -440,6 +425,21 @@ hexo s
       </categories>
       <tags>
         <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>群晖DSM系统常见问题汇总</title>
+    <url>/2022/02/04/nas-questions/</url>
+    <content><![CDATA[<h2 id="1-Docker容器时间时区不对"><a href="#1-Docker容器时间时区不对" class="headerlink" title="1.Docker容器时间时区不对"></a>1.Docker容器时间时区不对</h2><p>开启容器，并点击<code>详情-终端机-新增</code>。通过命令启动，并输入命令<code>/bin/sh</code>以进入终端。点击新建立的终端<code>sh</code>，进入终端输入命令<code>date</code>查看容器时间。开启DSM ssh，并获取root权限，用root登陆ssh终端。输入命令<code>sudo docker ps</code>获取时间不对容器的id。<br>执行如下命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker cp /etc/localtime containerID:/etc/localtime</span><br></pre></td></tr></table></figure>
+<p>执行命令后，返回终端<code>sh</code>，输入命令<code>date</code>查看容器时间是否变化。<br>时间修改成功后，该容器关闭等操作均不会受影响。如果删除容器重新建立，则需要重复该方法。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>群晖</tag>
+        <tag>docker</tag>
       </tags>
   </entry>
   <entry>
